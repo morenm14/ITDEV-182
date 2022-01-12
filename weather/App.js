@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  KeyboardAvoidingView,
-} from 'react-native';
+import {Text, TextInput, StyleSheet, KeyboardAvoidingView} from 'react-native';
 
 const App = () => {
   return (

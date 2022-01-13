@@ -8,6 +8,7 @@ const App = () => {
       <Text style={styles.city}>San Francisco</Text>
       <Text style={styles.weatherConditions}>Light Cloud</Text>
       <Text style={styles.temperature}>32º</Text>
+
       <SearchInput placeholder="Search any city" />
     </KeyboardAvoidingView>
   );

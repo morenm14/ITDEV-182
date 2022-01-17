@@ -46,9 +46,11 @@ const styles = StyleSheet.create({
   },
   smallText: {
     fontSize: 18,
+    marginBottom: 10,
   },
   textStyle: {
     textAlign: 'center',
+    color: 'white',
   },
   imageContainer: {
     flex: 1,
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,,0.2)',
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
 });
 

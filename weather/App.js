@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -10,6 +10,12 @@ import SearchInput from './components/SearchInput';
 import getImageForWeather from './utils/getImageForWeather';
 
 const App = () => {
+  const [location, setLocation] = useState('Mexico');
+
+  const handleUpdateLocation = city => {
+    setLocation(city);
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <ImageBackground
@@ -17,12 +23,13 @@ const App = () => {
         style={styles.imageContainer}
         imageStyle={styles.image}>
         <View style={styles.detailsContainer}>
-          <Text style={[styles.largeText, styles.textStyle]}>
-            San Francisco
-          </Text>
+          <Text style={[styles.largeText, styles.textStyle]}>{location}</Text>
           <Text style={[styles.smallText, styles.textStyle]}>Light Cloud</Text>
           <Text style={[styles.largeText, styles.textStyle]}>32º</Text>
-          <SearchInput placeholder="Search any city" />
+          <SearchInput
+            placeholder="Search any city"
+            onSubmit={handleUpdateLocation}
+          />
         </View>
       </ImageBackground>
     </KeyboardAvoidingView>

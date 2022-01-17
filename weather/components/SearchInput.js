@@ -1,15 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
 
 const SearchInput = props => {
+  const {placeholder, onSubmit} = props;
+  const [city, setCity] = useState('');
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.textInput}
         autoCorrect={false}
-        placeholder={props.placeholder}
+        placeholder={placeholder}
         placeholderTextColor="white"
         clearButtonMode="always"
+        onChangeText={text => setCity(text)}
+        onSubmitEditing={() => {
+          if (!city) return;
+          onSubmit(city);
+          setCity('');
+        }}
+        value={city}
       />
     </View>
   );

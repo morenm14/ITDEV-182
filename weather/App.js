@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Text,
+  View,
   StyleSheet,
   KeyboardAvoidingView,
   ImageBackground,
@@ -15,11 +16,14 @@ const App = () => {
         source={getImageForWeather('Clear')}
         style={styles.imageContainer}
         imageStyle={styles.image}>
-        <Text style={styles.city}>San Francisco</Text>
-        <Text style={styles.weatherConditions}>Light Cloud</Text>
-        <Text style={styles.temperature}>32º</Text>
-
-        <SearchInput placeholder="Search any city" />
+        <View style={styles.detailsContainer}>
+          <Text style={[styles.largeText, styles.textStyle]}>
+            San Francisco
+          </Text>
+          <Text style={[styles.smallText, styles.textStyle]}>Light Cloud</Text>
+          <Text style={[styles.largeText, styles.textStyle]}>32º</Text>
+          <SearchInput placeholder="Search any city" />
+        </View>
       </ImageBackground>
     </KeyboardAvoidingView>
   );
@@ -30,26 +34,29 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#34495E',
   },
-  city: {
+  largeText: {
     fontSize: 44,
   },
-  weatherConditions: {
+  smallText: {
     fontSize: 18,
   },
-  temperature: {
-    fontSize: 44,
-    marginTop: 10,
+  textStyle: {
+    textAlign: 'center',
   },
   imageContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   image: {
     flex: 1,
     width: null,
     height: null,
     resizeMode: 'cover',
+  },
+  detailsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,,0.2)',
   },
 });
 

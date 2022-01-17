@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -10,7 +10,11 @@ import SearchInput from './components/SearchInput';
 import getImageForWeather from './utils/getImageForWeather';
 
 const App = () => {
-  const [location, setLocation] = useState('Milwaukee');
+  const [location, setLocation] = useState('');
+
+  useEffect(() => {
+    handleUpdateLocation('San Francisco');
+  }, []);
 
   const handleUpdateLocation = city => {
     setLocation(city);

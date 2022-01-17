@@ -10,7 +10,7 @@ import SearchInput from './components/SearchInput';
 import getImageForWeather from './utils/getImageForWeather';
 
 const App = () => {
-  const [location, setLocation] = useState('Mexico');
+  const [location, setLocation] = useState('Milwaukee');
 
   const handleUpdateLocation = city => {
     setLocation(city);

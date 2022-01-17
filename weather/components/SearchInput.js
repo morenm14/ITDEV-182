@@ -5,6 +5,12 @@ const SearchInput = props => {
   const {placeholder, onSubmit} = props;
   const [city, setCity] = useState('');
 
+  const handelSubmitEditing = () => {
+    if (!city) return;
+    onSubmit(city);
+    setCity('');
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -14,11 +20,7 @@ const SearchInput = props => {
         placeholderTextColor="white"
         clearButtonMode="always"
         onChangeText={text => setCity(text)}
-        onSubmitEditing={() => {
-          if (!city) return;
-          onSubmit(city);
-          setCity('');
-        }}
+        onSubmitEditing={handelSubmitEditing}
         value={city}
       />
     </View>

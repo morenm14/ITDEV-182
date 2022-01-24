@@ -1,10 +1,11 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import TimerForm from './TimerForm';
 import Timer from './Timer';
 
 const EditableTimer = props => {
-  const {id, title, project, elapsed, isRunning, editFormOpen} = props;
+  const {id, title, project, elapsed, isRunning} = props;
+  const [editFormOpen, setEditFormOpen] = useState(false);
 
   if (editFormOpen) {
     return <TimerForm id={id} title={title} project={project} />;

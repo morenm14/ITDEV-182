@@ -9,15 +9,15 @@ const App = () => {
     {
       title: 'Mow the lawn',
       project: 'House chores',
-      id: uuidv4,
+      id: uuidv4(),
       elapsed: 5456099,
       isRunning: true,
     },
     {
       title: 'Bake squash',
       project: 'Kitchen chores',
-      id: uuidv4,
-      elapsed: 5456099,
+      id: uuidv4(),
+      elapsed: 1273998,
       isRunning: false,
     },
   ]);

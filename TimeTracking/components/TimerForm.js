@@ -1,21 +1,42 @@
 import {StyleSheet, Text, View, TextInput} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import TimerButton from './TimerButton';
 
-const TimerForm = ({id, title, project}) => {
+const TimerForm = props => {
+  const {id, title, project} = props;
+
+  const [, setTitle] = useState(id ? {title} : ' ');
+  const [, setProject] = useState(id ? {project} : '');
+
+  const handleTitleChange = title => {
+    setTitle({title});
+  };
+
+  const handleProjectChange = project => {
+    setProject({project});
+  };
+
   const submitText = id ? 'Update' : 'Create';
   return (
     <View style={styles.formContainer}>
       <View style={styles.attributeContainer}>
         <Text style={styles.textInputTitle}>Title</Text>
         <View style={styles.textInputContainer}>
-          <TextInput style={styles.textInput} defaultValue={title} />
+          <TextInput
+            style={styles.textInput}
+            onChangeText={handleTitleChange}
+            value={title}
+          />
         </View>
       </View>
       <View style={styles.attributeContainer}>
         <Text style={styles.textInputTitle}>Project</Text>
         <View style={styles.textInputContainer}>
-          <TextInput style={styles.textInput} defaultValue={project} />
+          <TextInput
+            style={styles.textInput}
+            onChangeText={handleProjectChange}
+            value={project}
+          />
         </View>
       </View>
       <View style={styles.buttonGroup}>

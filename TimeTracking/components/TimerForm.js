@@ -3,20 +3,28 @@ import React, {useState} from 'react';
 import TimerButton from './TimerButton';
 
 const TimerForm = props => {
-  const {id, title, project} = props;
+  const {id, onFormClose, onFormSubmit} = props;
+  const submitText = id ? 'Update' : 'Create';
 
-  const [, setTitle] = useState(id ? {title} : ' ');
-  const [, setProject] = useState(id ? {project} : '');
+  const [title, setTitle] = useState(id ? title : '');
+  const [project, setProject] = useState(id ? project : '');
 
   const handleTitleChange = title => {
-    setTitle({title});
+    setTitle(title);
   };
 
   const handleProjectChange = project => {
-    setProject({project});
+    setProject(project);
   };
 
-  const submitText = id ? 'Update' : 'Create';
+  const handleSubmit = () => {
+    onFormSubmit({
+      id: id,
+      title: title,
+      project: project,
+    });
+  };
+
   return (
     <View style={styles.formContainer}>
       <View style={styles.attributeContainer}>
@@ -40,8 +48,18 @@ const TimerForm = props => {
         </View>
       </View>
       <View style={styles.buttonGroup}>
-        <TimerButton small color="#21BA45" title={submitText} />
-        <TimerButton small color="#DB2828" title="Cancel" />
+        <TimerButton
+          small
+          color="#21BA45"
+          title={submitText}
+          onPress={handleSubmit}
+        />
+        <TimerButton
+          small
+          color="#DB2828"
+          title="Cancel"
+          onPress={onFormClose}
+        />
       </View>
     </View>
   );

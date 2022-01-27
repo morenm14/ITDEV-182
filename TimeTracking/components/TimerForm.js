@@ -19,9 +19,9 @@ const TimerForm = props => {
 
   const handleSubmit = () => {
     onFormSubmit({
-      id: id,
-      title: title,
-      project: project,
+      id,
+      title,
+      project,
     });
   };
 

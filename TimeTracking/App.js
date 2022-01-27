@@ -31,6 +31,7 @@ const App = () => {
   ]);
 
   const handleCreateFormSubmit = timer => {
+    if (!timer.title || !timer.project) return;
     setTimers([newTimer(timer), ...timers]);
   };
 

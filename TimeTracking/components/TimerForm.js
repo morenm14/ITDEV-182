@@ -9,14 +9,6 @@ const TimerForm = props => {
   const [title, setTitle] = useState(id ? title : '');
   const [project, setProject] = useState(id ? project : '');
 
-  const handleTitleChange = title => {
-    setTitle(title);
-  };
-
-  const handleProjectChange = project => {
-    setProject(project);
-  };
-
   const handleSubmit = () => {
     onFormSubmit({
       id,
@@ -32,8 +24,9 @@ const TimerForm = props => {
         <View style={styles.textInputContainer}>
           <TextInput
             style={styles.textInput}
-            onChangeText={handleTitleChange}
+            onChangeText={text => setTitle(text)}
             value={title}
+            editable={true}
           />
         </View>
       </View>
@@ -42,7 +35,7 @@ const TimerForm = props => {
         <View style={styles.textInputContainer}>
           <TextInput
             style={styles.textInput}
-            onChangeText={handleProjectChange}
+            onChangeText={text => setProject(text)}
             value={project}
           />
         </View>

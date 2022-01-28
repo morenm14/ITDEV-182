@@ -52,6 +52,10 @@ const App = () => {
     );
   };
 
+  const handleRemovePress = timerId => {
+    setTimers(timers.filter(t => t.id !== timerId));
+  };
+
   return (
     <View style={styles.appContainer}>
       <View style={styles.titleContainer}>
@@ -71,6 +75,7 @@ const App = () => {
               elapsed={elapsed}
               isRunning={isRunning}
               onFormSubmit={handleFormSubmit}
+              onRemovePress={handleRemovePress}
             />
           ))}
         </ScrollView>

@@ -3,8 +3,12 @@ import React from 'react';
 import {millisecondsToHuman} from '../utils/TimerUtils';
 import TimerButton from './TimerButton';
 
-const Timer = ({title, project, elapsed, onEditPress}) => {
+const Timer = ({id, title, project, elapsed, onEditPress, onRemovePress}) => {
   const elapsedString = millisecondsToHuman(elapsed);
+
+  const handleRemovePress = () => {
+    onRemovePress(id);
+  };
 
   return (
     <View style={styles.timerContainer}>
@@ -13,7 +17,12 @@ const Timer = ({title, project, elapsed, onEditPress}) => {
       <Text style={styles.elapsedTime}>{elapsedString}</Text>
       <View style={styles.buttonGroup}>
         <TimerButton color="blue" small title="Edit" onPress={onEditPress} />
-        <TimerButton color="blue" small title="Remove" />
+        <TimerButton
+          color="blue"
+          small
+          title="Remove"
+          onPress={handleRemovePress}
+        />
       </View>
       <TimerButton color="#21BA45" title="Start" />
     </View>

@@ -13,7 +13,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.2")
+        classpath("com.android.tools.build:gradle:6.9.1")
         implementation "com.android.support:appcompat-v7:27.1.1"
         implementation "com.facebook.react:react-native:+" // From node_modules
         implementation "org.webkit:android-jsc:+"

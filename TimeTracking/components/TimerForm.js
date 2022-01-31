@@ -3,17 +3,17 @@ import React, {useState} from 'react';
 import TimerButton from './TimerButton';
 
 const TimerForm = props => {
-  const {id, onFormClose, onFormSubmit} = props;
+  const {id, title, project, onFormClose, onFormSubmit} = props;
   const submitText = id ? 'Update' : 'Create';
 
-  const [title, setTitle] = useState(id ? title : '');
-  const [project, setProject] = useState(id ? project : '');
+  const [dTitle, setDTitle] = useState(id ? title : '');
+  const [dProject, setDProject] = useState(id ? project : '');
 
   const handleSubmit = () => {
     onFormSubmit({
-      id,
-      title,
-      project,
+      id: id,
+      title: dTitle,
+      project: dProject,
     });
   };
 
@@ -24,9 +24,8 @@ const TimerForm = props => {
         <View style={styles.textInputContainer}>
           <TextInput
             style={styles.textInput}
-            onChangeText={text => setTitle(text)}
-            value={title}
-            editable={true}
+            onChangeText={text => setDTitle(text)}
+            value={dTitle}
           />
         </View>
       </View>
@@ -35,8 +34,8 @@ const TimerForm = props => {
         <View style={styles.textInputContainer}>
           <TextInput
             style={styles.textInput}
-            onChangeText={text => setProject(text)}
-            value={project}
+            onChangeText={text => setDProject(text)}
+            value={dProject}
           />
         </View>
       </View>

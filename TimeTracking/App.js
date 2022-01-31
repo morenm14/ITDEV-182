@@ -31,7 +31,10 @@ const App = () => {
   ]);
 
   const handleCreateFormSubmit = timer => {
-    if (!timer.title || !timer.project) return;
+    if (!timer.title || !timer.project) {
+      alert('please enter all fields');
+      return;
+    }
     setTimers([newTimer(timer), ...timers]);
   };
 
@@ -56,6 +59,10 @@ const App = () => {
     setTimers(timers.filter(t => t.id !== timerId));
   };
 
+  const handleEditPress = event => {
+    onEditPress(console.log(event.target.title));
+  };
+
   return (
     <View style={styles.appContainer}>
       <View style={styles.titleContainer}>
@@ -74,6 +81,7 @@ const App = () => {
               project={project}
               elapsed={elapsed}
               isRunning={isRunning}
+              onEditPress={handleEditPress}
               onFormSubmit={handleFormSubmit}
               onRemovePress={handleRemovePress}
             />

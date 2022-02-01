@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import uuidv4 from 'uuid/v4';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import EditableTimer from './components/EditableTimer';
@@ -12,14 +12,14 @@ const App = () => {
       project: 'House chores',
       id: uuidv4(),
       elapsed: 5456099,
-      isRunning: true,
+      isRunning: false,
     },
     {
       title: 'Bake squash',
       project: 'Kitchen chores',
       id: uuidv4(),
       elapsed: 1273998,
-      isRunning: false,
+      isRunning: true,
     },
     {
       title: 'Make Chicken ',
@@ -29,6 +29,26 @@ const App = () => {
       isRunning: false,
     },
   ]);
+
+  useEffect(() => {
+    const TIME_INTERVAL = 1000;
+
+    this.intervalId = setInterval(() => {
+      setTimers(
+        timers.map(timer => {
+          const {elapsed, isRunning} = timer;
+          return {
+            ...timer,
+            elapsed: isRunning ? elapsed + TIME_INTERVAL : elapsed,
+          };
+        }),
+      );
+    }, TIME_INTERVAL);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [timers]);
 
   const handleCreateFormSubmit = timer => {
     if (!timer.title || !timer.project) {
@@ -63,6 +83,21 @@ const App = () => {
     onEditPress(console.log(event.target.title));
   };
 
+  const toggleTimer = timerId => {
+    setTimers(
+      timers.map(timer => {
+        const {id, isRunning} = timer;
+        if (id === timerId) {
+          return {
+            ...timer,
+            isRunning: !isRunning,
+          };
+        }
+        return timer;
+      }),
+    );
+  };
+
   return (
     <View style={styles.appContainer}>
       <View style={styles.titleContainer}>
@@ -84,6 +119,8 @@ const App = () => {
               onEditPress={handleEditPress}
               onFormSubmit={handleFormSubmit}
               onRemovePress={handleRemovePress}
+              onStartPress={toggleTimer}
+              onStopPress={toggleTimer}
             />
           ))}
         </ScrollView>

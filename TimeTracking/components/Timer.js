@@ -3,11 +3,29 @@ import React from 'react';
 import {millisecondsToHuman} from '../utils/TimerUtils';
 import TimerButton from './TimerButton';
 
-const Timer = ({id, title, project, elapsed, onEditPress, onRemovePress}) => {
+const Timer = ({
+  id,
+  title,
+  project,
+  elapsed,
+  isRunning,
+  onEditPress,
+  onRemovePress,
+  onStartPress,
+  onStopPress,
+}) => {
   const elapsedString = millisecondsToHuman(elapsed);
 
   const handleRemovePress = () => {
     onRemovePress(id);
+  };
+
+  const handleStopPress = () => {
+    onStopPress(id);
+  };
+
+  const handleStartPress = () => {
+    onStartPress(id);
   };
 
   return (
@@ -24,7 +42,11 @@ const Timer = ({id, title, project, elapsed, onEditPress, onRemovePress}) => {
           onPress={handleRemovePress}
         />
       </View>
-      <TimerButton color="#21BA45" title="Start" />
+      {isRunning ? (
+        <TimerButton color="#DB2828" title="Stop" onPress={handleStopPress} />
+      ) : (
+        <TimerButton color="#21BA45" title="Start" onPress={handleStartPress} />
+      )}
     </View>
   );
 };

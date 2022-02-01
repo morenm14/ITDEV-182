@@ -4,8 +4,17 @@ import TimerForm from './TimerForm';
 import Timer from './Timer';
 
 const EditableTimer = props => {
-  const {id, title, project, elapsed, isRunning, onFormSubmit, onRemovePress} =
-    props;
+  const {
+    id,
+    title,
+    project,
+    elapsed,
+    isRunning,
+    onFormSubmit,
+    onRemovePress,
+    onStopPress,
+    onStartPress,
+  } = props;
   const [editFormOpen, setEditFormOpen] = useState(false);
 
   const handleEditPress = () => {
@@ -45,6 +54,8 @@ const EditableTimer = props => {
       isRunning={isRunning}
       onEditPress={handleEditPress}
       onRemovePress={onRemovePress}
+      onStartPress={onStartPress}
+      onStopPress={onStopPress}
     />
   );
 };

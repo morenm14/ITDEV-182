@@ -111,7 +111,7 @@ const App = () => {
         <Text style={styles.title}>Timers</Text>
       </View>
       <KeyboardAvoidingView
-        behavior="padding"
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.timerListContainer}>
         <SafeAreaView>
           <ScrollView

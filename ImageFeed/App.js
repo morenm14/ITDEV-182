@@ -7,15 +7,24 @@ import {
   Text,
   View,
 } from 'react-native';
+import Avatar from './components/Avatar';
 
 const App = () => {
   return (
     <SafeAreaView>
-      <ScrollView></ScrollView>
+      <View style={styles.container}>
+        <Avatar initials={'FL'} size={35} backgroundColor={'teal'} />
+      </View>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'flex-start',
+  },
+});
 
 export default App;

@@ -7,19 +7,19 @@ import {
   Text,
   View,
 } from 'react-native';
-import Avatar from './components/Avatar';
-import AuthorRow from './components/AuthorRow';
+import Card from './components/Card';
 
 const App = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <AuthorRow
+        <Card
           fullName={'Mario Moreno'}
           linkText={'Comments'}
           onPressLinkText={() => {
             console.log('Pressed Link');
           }}
+          image={{uri: 'https://unsplash.it/600/600'}}
         />
       </View>
     </SafeAreaView>

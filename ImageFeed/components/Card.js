@@ -1,9 +1,15 @@
-import {StyleSheet, View, Image} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, Image, ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 import AuthorRow from './AuthorRow';
-import React from 'react';
 
 const Card = ({fullName, image, linkText, onPressLinkText}) => {
+  const [loading, setLoading] = useState(true);
+
+  const handleLoad = () => {
+    setLoading(false);
+  };
+
   return (
     <View>
       <AuthorRow
@@ -11,7 +17,16 @@ const Card = ({fullName, image, linkText, onPressLinkText}) => {
         linkText={linkText}
         onPressLinkText={onPressLinkText}
       />
-      <Image style={styles.image} source={image} />
+      <View style={styles.image}>
+        {loading && (
+          <ActivityIndicator style={StyleSheet.absoluteFill} size={'large'} />
+        )}
+        <Image
+          style={StyleSheet.absoluteFill}
+          source={image}
+          onLoad={handleLoad}
+        />
+      </View>
     </View>
   );
 };
@@ -32,6 +47,6 @@ Card.defaultProps = {
 const styles = StyleSheet.create({
   image: {
     aspectRatio: 1,
-    backgroundColor: 'rgba(0,0,0,0.02)',
+    backgroundColor: 'rgba(0,0,0,0.05)',
   },
 });

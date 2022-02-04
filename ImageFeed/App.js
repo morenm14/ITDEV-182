@@ -8,12 +8,19 @@ import {
   View,
 } from 'react-native';
 import Avatar from './components/Avatar';
+import AuthorRow from './components/AuthorRow';
 
 const App = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Avatar initials={'FL'} size={35} backgroundColor={'teal'} />
+        <AuthorRow
+          fullName={'Mario Moreno'}
+          linkText={'Comments'}
+          onPressLinkText={() => {
+            console.log('Pressed Link');
+          }}
+        />
       </View>
     </SafeAreaView>
   );

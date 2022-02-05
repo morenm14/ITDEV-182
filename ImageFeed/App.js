@@ -1,28 +1,17 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import Card from './components/Card';
+import {StyleSheet, View} from 'react-native';
+import CardList from './components/CardList';
+
+const items = [
+  {id: 50, author: 'Bob Ross'},
+  {id: 10, author: 'Chuck Norris'},
+];
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Card
-          fullName={'Mario Moreno'}
-          linkText={'Comments'}
-          onPressLinkText={() => {
-            console.log('Pressed Link');
-          }}
-          image={{uri: 'https://unsplash.it/600/600'}}
-        />
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <CardList items={items} />
+    </View>
   );
 };
 

@@ -1,5 +1,4 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import Avatar from './Avatar';
@@ -27,12 +26,6 @@ const AuthorRow = ({fullName, linkText, onPressLinkText}) => {
 };
 
 export default AuthorRow;
-
-AuthorRow.propTypes = {
-  fullName: PropTypes.string.isRequired,
-  linkText: PropTypes.string.isRequired,
-  onPressLinkText: PropTypes.func.isRequired,
-};
 
 const styles = StyleSheet.create({
   container: {

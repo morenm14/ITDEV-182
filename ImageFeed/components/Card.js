@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Image, ActivityIndicator} from 'react-native';
-import PropTypes from 'prop-types';
 import AuthorRow from './AuthorRow';
 
 const Card = ({fullName, image, linkText, onPressLinkText}) => {
@@ -32,17 +31,6 @@ const Card = ({fullName, image, linkText, onPressLinkText}) => {
 };
 
 export default Card;
-
-Card.propTypes = {
-  fullName: PropTypes.string.isRequired,
-  linkText: PropTypes.string.isRequired,
-  onPressLinkText: PropTypes.func,
-};
-
-Card.defaultProps = {
-  linkText: '',
-  onPressLinkText: () => {},
-};
 
 const styles = StyleSheet.create({
   image: {

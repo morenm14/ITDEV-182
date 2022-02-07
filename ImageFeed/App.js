@@ -1,16 +1,11 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import CardList from './components/CardList';
-
-const items = [
-  {id: 50, author: 'Bob Ross'},
-  {id: 10, author: 'Chuck Norris'},
-];
+import Feed from './screens/Feed';
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <CardList items={items} />
+      <Feed style={styles.feed} />
     </View>
   );
 };

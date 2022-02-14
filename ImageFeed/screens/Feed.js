@@ -41,7 +41,7 @@ export default class Feed extends React.Component {
   }
 
   render() {
-    const {style} = this.props;
+    const {style, commentsForItem, onPressComments} = this.props;
     const {loading, error, items} = this.state;
 
     if (loading) {
@@ -54,7 +54,11 @@ export default class Feed extends React.Component {
 
     return (
       <SafeAreaView style={style}>
-        <CardList items={items} />
+        <CardList
+          items={items}
+          commentsForItem={commentsForItem}
+          onPressComments={onPressComments}
+        />
       </SafeAreaView>
     );
   }

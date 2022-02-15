@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontWeight: '500',
+    fontSize: 18,
+    fontWeight: '700',
   },
   leftText: {
     position: 'absolute',

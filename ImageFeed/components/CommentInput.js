@@ -5,13 +5,12 @@ const CommentInput = ({onSubmit, placeholder}) => {
   const [text, setText] = useState('');
 
   const handleChangeText = text => {
-    setText({text});
+    setText(text);
   };
 
   const handleSubmitEditing = () => {
     if (!text) return;
     onSubmit(text);
-    setText('');
   };
 
   return (

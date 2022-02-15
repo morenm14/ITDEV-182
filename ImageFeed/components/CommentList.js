@@ -2,13 +2,15 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
 const CommentList = ({items}) => {
-  const renderItem = (item, index) => {
-    <View key={index} style={styles.comment}>
-      <Text>{item}</Text>
-    </View>;
-  };
-
-  return <ScrollView>{items.map(renderItem)}</ScrollView>;
+  return (
+    <ScrollView>
+      {items.map((item, index) => (
+        <View key={index} style={styles.comment}>
+          <Text>{item}</Text>
+        </View>
+      ))}
+    </ScrollView>
+  );
 };
 
 export default CommentList;

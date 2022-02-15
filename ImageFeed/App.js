@@ -18,6 +18,15 @@ const App = () => {
     setSelectedItemId(null);
   };
 
+  const onSubmitComment = text => {
+    const comments = commentsForItem[selectedItemId] || [];
+    const updated = {
+      ...commentsForItem,
+      [selectedItemId]: [...comments, text],
+    };
+    setCommentsForItem(updated);
+  };
+
   return (
     <View style={styles.container}>
       <Feed
@@ -33,6 +42,7 @@ const App = () => {
           style={styles.container}
           comments={commentsForItem[selectedItemId] || []}
           onClose={closeCommentScreen}
+          onSubmitComment={onSubmitComment}
         />
       </Modal>
     </View>
@@ -41,7 +51,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0,
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
   },

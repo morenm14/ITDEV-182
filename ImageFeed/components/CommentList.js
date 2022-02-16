@@ -2,6 +2,8 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
 const CommentList = ({items}) => {
+  console.log(items);
+
   return (
     <ScrollView>
       {items.map((item, index) => (

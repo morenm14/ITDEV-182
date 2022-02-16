@@ -19,11 +19,13 @@ const App = () => {
   };
 
   const onSubmitComment = text => {
-    const comments = commentsForItem[selectedItemId] || [];
+    const comments = commentsForItem[selectedItemId];
+
     const updated = {
-      ...commentsForItem,
+      ...commentsForItem[selectedItemId],
       [selectedItemId]: [...comments, text],
     };
+
     setCommentsForItem(updated);
   };
 
@@ -51,7 +53,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0,
+    flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
   },

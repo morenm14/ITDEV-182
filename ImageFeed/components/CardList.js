@@ -6,9 +6,7 @@ import Card from './Card';
 const keyExtractor = ({id}) => id.toString();
 
 const CardList = ({items, commentsForItem, onPressComments}) => {
-  const renderItem = obj => {
-    const id = obj.item.id;
-    const author = obj.item.author;
+  const renderItem = ({item: {id, author}}) => {
     const comments = commentsForItem[id];
 
     return (

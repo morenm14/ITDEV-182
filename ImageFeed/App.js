@@ -25,7 +25,6 @@ const App = () => {
       ...commentsForItem[selectedItemId],
       [selectedItemId]: [...comments, text],
     };
-
     setCommentsForItem(updated);
   };
 

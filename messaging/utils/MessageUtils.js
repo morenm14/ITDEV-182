@@ -13,7 +13,7 @@ export const MessageShape = PropTypes.shape({
 
 let messageId = 0;
 
-function getNextId() {
+export function getNextId() {
   messageId += 1;
   return messageId;
 }

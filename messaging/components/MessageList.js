@@ -45,7 +45,6 @@ const MessageList = ({messages, onPressMessage}) => {
   };
 
   const renderMessageItem = ({item}) => {
-    //console.log(item.id);
     return (
       <View key={item.id} style={styles.messageRow}>
         <TouchableOpacity onPress={() => onPressMessage(item)}>

@@ -1,4 +1,4 @@
-import {StyleSheet, View, Alert} from 'react-native';
+import {StyleSheet, View, Alert, Image, TouchableHighlight} from 'react-native';
 import React, {useState} from 'react';
 import MessageList from './components/MessageList';
 import Toolbar from './components/Toolbar';
@@ -20,7 +20,31 @@ const App = () => {
       longitude: -122.4324,
     }),
   ]);
+
+  const [fullScreenImageId, setFullScreenImageId] = useState(null);
+
+  const dismissFullScreenImage = () => {
+    setFullScreenImageId(null);
+  };
+
   console.log(messages);
+
+  const renderFullscreenImage = () => {
+    if (!fullScreenImageId) return null;
+    const image = messages.find(message => message.id === fullScreenImageId);
+
+    if (!image) return null;
+    const uri = image;
+
+    return (
+      <TouchableHighlight
+        style={styles.fullscreenOverlay}
+        onPress={dismissFullScreenImage}>
+        <Image style={styles.fullscreenImage} source={uri} />
+      </TouchableHighlight>
+    );
+  };
+
   const handlePressMessage = ({id, type}) => {
     switch (type) {
       case 'text':
@@ -42,6 +66,11 @@ const App = () => {
           ],
         );
         break;
+      case 'image':
+        setFullScreenImageId(id);
+
+        break;
+
       default:
         break;
     }
@@ -52,6 +81,7 @@ const App = () => {
       <MessageList messages={messages} onPressMessage={handlePressMessage} />
       <Toolbar />
       <InputMethodEditor />
+      {renderFullscreenImage()}
     </View>
   );
 };
@@ -62,5 +92,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  fullscreenOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'black',
+    zIndex: 2,
+  },
+  fullscreenImage: {
+    flex: 1,
+    resizeMode: 'contain',
   },
 });

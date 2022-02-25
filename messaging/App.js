@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Alert} from 'react-native';
 import React, {useState} from 'react';
 import MessageList from './components/MessageList';
 import Toolbar from './components/Toolbar';
@@ -20,8 +20,32 @@ const App = () => {
       longitude: -122.4324,
     }),
   ]);
-
-  const handlePressMessage = () => {};
+  console.log(messages);
+  const handlePressMessage = ({id, type}) => {
+    switch (type) {
+      case 'text':
+        Alert.alert(
+          'Delete Message?',
+          'Are you sure you want to permanently delete this message?',
+          [
+            {text: 'cancel', style: 'cancel'},
+            {
+              text: 'delete',
+              style: 'destructive',
+              onPress: () => {
+                const newMessages = messages.filter(
+                  message => message.id !== id,
+                );
+                setMessages(newMessages);
+              },
+            },
+          ],
+        );
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <View style={styles.container}>
       <Status />

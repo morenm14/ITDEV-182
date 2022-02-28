@@ -34,8 +34,6 @@ const App = () => {
   const renderFullscreenImage = () => {
     if (!fullScreenImageId) return null;
     const image = messages.find(message => message.id === fullScreenImageId);
-    console.log(fullScreenImageId);
-
     if (!image) return null;
     const uri = image;
 

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 const ToolbarButton = ({title, onPress}) => {
   return (
@@ -21,8 +21,25 @@ ToolbarButton.propTypes = {
   onPress: PropTypes.func.isRequired,
 };
 
-const Toolbar = ({onPressCamera, onPressLocation, onSubmit}) => {
+const Toolbar = ({
+  onPressCamera,
+  onPressLocation,
+  onSubmit,
+  isFocused,
+  onChangeFocus,
+}) => {
   const [text, setText] = useState('');
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current.isFocused !== isFocused) {
+      if (inputRef.current.isFocused) {
+        inputRef.current.focus();
+      } else {
+        inputRef.current.blur();
+      }
+    }
+  }, []);
 
   const handleChangeText = text => {
     setText(text);
@@ -32,6 +49,14 @@ const Toolbar = ({onPressCamera, onPressLocation, onSubmit}) => {
     if (!text) return;
     onSubmit(text);
     setText('');
+  };
+
+  const handleFocus = () => {
+    onChangeFocus(true);
+  };
+
+  const handleBlur = () => {
+    onChangeFocus(false);
   };
   return (
     <View style={styles.toolbar}>
@@ -45,6 +70,9 @@ const Toolbar = ({onPressCamera, onPressLocation, onSubmit}) => {
           value={text}
           onChangeText={handleChangeText}
           onSubmitEditing={handleSubmitEditing}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          ref={inputRef}
         />
       </View>
     </View>

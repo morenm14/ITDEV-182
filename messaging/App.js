@@ -1,4 +1,11 @@
-import {StyleSheet, View, Alert, Image, TouchableHighlight} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Alert,
+  Image,
+  TouchableHighlight,
+  Keyboard,
+} from 'react-native';
 import React, {useState} from 'react';
 import MessageList from './components/MessageList';
 import Toolbar from './components/Toolbar';
@@ -11,6 +18,8 @@ import {
 } from './utils/MessageUtils';
 
 const App = () => {
+  const [fullScreenImageId, setFullScreenImageId] = useState(null);
+  const [isInputFocused, setInputFocus] = useState(false);
   const [messages, setMessages] = useState([
     createImageMessage(
       'https://i.picsum.photos/id/870/300/300.jpg?hmac=tbU7I0f7O_fL0zzG1foTEtEr-CXjiOl5NegPpGlnSLM',
@@ -23,13 +32,17 @@ const App = () => {
     }),
   ]);
 
-  const [fullScreenImageId, setFullScreenImageId] = useState(null);
+  const handlePressToolbarCamera = () => {};
+
+  const handlePressToolbarLocation = () => {};
+
+  const handleSubmit = text => {
+    setMessages([createTextMessage(text), ...messages]);
+  };
 
   const dismissFullScreenImage = () => {
     setFullScreenImageId(null);
   };
-
-  console.log(messages);
 
   const renderFullscreenImage = () => {
     if (!fullScreenImageId) return null;
@@ -68,18 +81,37 @@ const App = () => {
         );
         break;
       case 'image':
+        Keyboard.dismiss();
         setFullScreenImageId(id);
+
+        console.log('is focused from case image', isInputFocused);
+
         break;
 
       default:
         break;
     }
   };
+
+  const handleChangeFocus = isFocused => {
+    setInputFocus(isFocused);
+    console.log('is focus? from func:', isFocused);
+  };
+  console.log('is focus? from outside func:', isInputFocused);
+
+  console.log(messages);
+
   return (
     <View style={styles.container}>
       <Status />
       <MessageList messages={messages} onPressMessage={handlePressMessage} />
-      <Toolbar />
+      <Toolbar
+        isFocused={isInputFocused}
+        onSubmit={handleSubmit}
+        onChangeFocus={handleChangeFocus}
+        onPressCamera={handlePressToolbarCamera}
+        onPressLocation={handlePressToolbarLocation}
+      />
       <InputMethodEditor />
       {renderFullscreenImage()}
     </View>

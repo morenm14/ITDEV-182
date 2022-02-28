@@ -29,15 +29,13 @@ const Toolbar = ({
   onChangeFocus,
 }) => {
   const [text, setText] = useState('');
-  const inputRef = useRef(null);
+  const inputRef = useRef();
 
   useEffect(() => {
-    if (inputRef.current.isFocused !== isFocused) {
-      if (inputRef.current.isFocused) {
-        inputRef.current.focus();
-      } else {
-        inputRef.current.blur();
-      }
+    if (!isFocused) {
+      inputRef.current.focus();
+    } else {
+      inputRef.current.blur();
     }
   }, []);
 
@@ -90,7 +88,6 @@ Toolbar.propTypes = {
 };
 
 Toolbar.defaultProps = {
-  isFocused: false,
   onChangeFocus: () => {},
   onSubmit: () => {},
   onPressCamera: () => {},

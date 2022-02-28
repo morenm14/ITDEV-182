@@ -12,7 +12,9 @@ import {
 
 const App = () => {
   const [messages, setMessages] = useState([
-    createImageMessage('https://unsplash.it/300/300'),
+    createImageMessage(
+      'https://i.picsum.photos/id/870/300/300.jpg?hmac=tbU7I0f7O_fL0zzG1foTEtEr-CXjiOl5NegPpGlnSLM',
+    ),
     createTextMessage('Hello'),
     createTextMessage('World'),
     createLocationMessage({
@@ -32,6 +34,7 @@ const App = () => {
   const renderFullscreenImage = () => {
     if (!fullScreenImageId) return null;
     const image = messages.find(message => message.id === fullScreenImageId);
+    console.log(fullScreenImageId);
 
     if (!image) return null;
     const uri = image;
@@ -68,7 +71,6 @@ const App = () => {
         break;
       case 'image':
         setFullScreenImageId(id);
-
         break;
 
       default:

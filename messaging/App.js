@@ -6,6 +6,8 @@ import {
   TouchableHighlight,
   Keyboard,
 } from 'react-native';
+import Geolocation from '@react-native-community/geolocation';
+
 import React, {useState} from 'react';
 import MessageList from './components/MessageList';
 import Toolbar from './components/Toolbar';
@@ -34,7 +36,17 @@ const App = () => {
 
   const handlePressToolbarCamera = () => {};
 
-  const handlePressToolbarLocation = () => {};
+  const handlePressToolbarLocation = () => {
+    Geolocation.getCurrentPosition(position => {
+      const {
+        coords: {latitude, longitude},
+      } = position;
+      setMessages([
+        createLocationMessage({latitude: latitude, longitude: longitude}),
+        ...messages,
+      ]);
+    });
+  };
 
   const handleSubmit = text => {
     setMessages([createTextMessage(text), ...messages]);
@@ -82,6 +94,7 @@ const App = () => {
         break;
       case 'image':
         Keyboard.dismiss();
+        setInputFocus(false);
         setFullScreenImageId(id);
 
         console.log('is focused from case image', isInputFocused);

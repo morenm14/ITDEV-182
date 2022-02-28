@@ -41,10 +41,7 @@ const App = () => {
       const {
         coords: {latitude, longitude},
       } = position;
-      setMessages([
-        createLocationMessage({latitude: latitude, longitude: longitude}),
-        ...messages,
-      ]);
+      setMessages([createLocationMessage({latitude, longitude}), ...messages]);
     });
   };
 

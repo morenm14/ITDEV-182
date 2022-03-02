@@ -2,10 +2,10 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import ImageGrid from './ImageGrid';
 
-const InputMethodEditor = () => {
+const InputMethodEditor = ({onPressImage}) => {
   return (
     <View style={styles.inputMethodEditor}>
-      <ImageGrid />
+      <ImageGrid onPressImage={onPressImage} />
     </View>
   );
 };

@@ -36,6 +36,10 @@ const App = () => {
 
   const handlePressToolbarCamera = () => {};
 
+  const handlePressImage = uri => {
+    setMessages([createImageMessage(uri), ...messages]);
+  };
+
   const handlePressToolbarLocation = () => {
     Geolocation.getCurrentPosition(position => {
       const {
@@ -118,7 +122,7 @@ const App = () => {
         onPressCamera={handlePressToolbarCamera}
         onPressLocation={handlePressToolbarLocation}
       />
-      <InputMethodEditor />
+      <InputMethodEditor onPressImage={handlePressImage} />
       {renderFullscreenImage()}
     </View>
   );

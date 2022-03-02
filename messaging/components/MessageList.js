@@ -12,10 +12,7 @@ import React from 'react';
 import {MessageShape} from '../utils/MessageUtils';
 
 const MessageList = ({messages, onPressMessage}) => {
-  const keyExtractor = item => {
-    item.id.toString();
-  };
-
+  const keyExtractor = item => item.id;
   const renderMessageBody = ({type, text, uri, coordinate}) => {
     switch (type) {
       case 'text':

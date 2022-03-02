@@ -105,11 +105,7 @@ const App = () => {
 
   const handleChangeFocus = isFocused => {
     setInputFocus(isFocused);
-    console.log('is focus? from func:', isFocused);
   };
-  console.log('is focus? from outside func:', isInputFocused);
-
-  console.log(messages);
 
   return (
     <View style={styles.container}>

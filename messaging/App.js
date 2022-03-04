@@ -97,9 +97,6 @@ const App = () => {
         Keyboard.dismiss();
         setInputFocus(false);
         setFullScreenImageId(id);
-
-        console.log('is focused from case image', isInputFocused);
-
         break;
 
       default:

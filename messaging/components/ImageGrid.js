@@ -44,7 +44,6 @@ const ImageGrid = ({onPressImage}) => {
 
     loading = false;
     cursor = has_next_page ? end_cursor : null;
-    console.log(cursor);
   };
 
   const keyExtractor = ({uri}) => uri;

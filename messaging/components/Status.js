@@ -10,7 +10,6 @@ const Status = () => {
   useEffect(() => {
     NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
-      console.log('connected: ', state.isConnected);
     });
   }, []);
 

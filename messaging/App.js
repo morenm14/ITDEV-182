@@ -44,9 +44,9 @@ const App = () => {
   ]);
 
   const handlePressToolbarCamera = () => {
-    setInputFocus(false);
-    setInputMethod(INPUT_METHOD.CUSTOM);
     Keyboard.dismiss();
+    if (!isInputFocused) setInputMethod(INPUT_METHOD.CUSTOM);
+    console.log(isInputFocused);
   };
 
   const handlePressImage = uri => {

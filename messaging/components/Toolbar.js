@@ -50,7 +50,7 @@ const Toolbar = ({
   };
 
   const handleFocus = () => {
-    onChangeFocus(true);
+    onChangeFocus(undefined);
   };
 
   const handleBlur = () => {

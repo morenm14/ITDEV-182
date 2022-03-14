@@ -5,12 +5,9 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  ColorPropType,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
-
-import colors from '../utils/colors';
 
 export default function ContactThumbnail({
   name,
@@ -50,7 +47,7 @@ ContactThumbnail.propTypes = {
   name: PropTypes.string,
   avatar: PropTypes.string,
   phone: PropTypes.string,
-  textColor: ColorPropType,
+  textColor: PropTypes.string,
   onPress: PropTypes.func,
 };
 

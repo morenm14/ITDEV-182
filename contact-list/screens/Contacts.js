@@ -5,7 +5,7 @@ import {fetchContacts} from "../utils/api";
 
 const keyExtractor =({phone}) => phone;
 
-const Contacts = () => {
+const Contacts = ({navigation: {navigate}}) => {
     const [contacts, setContacts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -31,11 +31,16 @@ const Contacts = () => {
     }, []);
 
     const contactsSorted = contacts.sort((a, b) => a.name.localeCompare(b.name));
+    
     const renderContact = ({item}) => {
-        const {name,avatar, phone} = item;
+        const {name, avatar, phone, cell, email } = item;
 
         return (
-            <ContactListItem name ={name} avatar ={avatar} phone ={phone} onPress={()=>{}}/>
+            <ContactListItem 
+            name ={name} 
+            avatar ={avatar} 
+            phone ={phone} 
+            onPress={()=> navigate('Profile', {avatar: avatar, cell: cell, phone: phone, email: email, name:name})}/>
         );
     }
 

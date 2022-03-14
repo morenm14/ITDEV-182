@@ -1,12 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import Contacts from './screens/Contacts';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>OPEN UP Project TO START WORKING ON YOUR APP!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Contacts/>
   );
 }
 

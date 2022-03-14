@@ -15,7 +15,7 @@ export default function App() {
     <StatusBar style='auto'/>
     <Stack.Navigator>
     <Stack.Screen name ="Contacts" component={Contacts}/>
-    <Stack.Screen name ="Profile" component={Profile}/>
+    <Stack.Screen name ="Profile" component={Profile} />
     </Stack.Navigator>
     </NavigationContainer>
   );

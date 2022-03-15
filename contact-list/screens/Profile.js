@@ -1,17 +1,13 @@
-import { StyleSheet, View } from 'react-native'
-import { useRoute } from '@react-navigation/native';
-import React, {useState, useEffect, useLayoutEffect} from 'react'
-
+import { StyleSheet, View } from 'react-native';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import ContactThumbnail from '../components/ContactThumbnail';
 import DetailListItem from "../components/DetailListItem";
 import colors from '../utils/colors';
 
 
 
-const Profile = ({navigation}) => {
-    const route = useRoute();
+const Profile = ({navigation, route}) => {
     const [contact, setContact] = useState({});
-    
     const {avatar, name, email, phone, cell} = contact;
 
     useLayoutEffect(() => {

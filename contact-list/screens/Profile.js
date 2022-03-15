@@ -12,7 +12,7 @@ const Profile = ({navigation, route}) => {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            title: name,
+            title: name?.split(" ")[0],
             headerTintColor: 'white',
             headerStyle: {
                 backgroundColor: colors.blue,

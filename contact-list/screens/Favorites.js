@@ -5,7 +5,7 @@ import ContactThumbnail from '../components/ContactThumbnail';
 
 const keyExtractor = ({phone}) => phone;
 
-const Favorites = ({navigation: {navigate}}) => {
+const Favorites = ({navigation}) => {
    
     const [contacts, setContacts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,6 +23,9 @@ const Favorites = ({navigation: {navigate}}) => {
             setError(true);
             setLoading(false);
         }
+        navigation.setOptions({
+            title: "Faves",
+        })
        
     },[]);
 
@@ -31,7 +34,7 @@ const Favorites = ({navigation: {navigate}}) => {
     const renderFavoriteThumbnail = ({item}) => {
         const {name, avatar, phone, cell, email } = item;
          return (
-             <ContactThumbnail avatar={avatar} onPress ={()=> navigate('Profile', {name, avatar, phone, cell, email})}/>
+             <ContactThumbnail avatar={avatar} onPress ={()=> navigation.navigate('Profile', {name, avatar, phone, cell, email})}/>
          )
     }
 

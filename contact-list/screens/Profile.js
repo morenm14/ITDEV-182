@@ -4,8 +4,6 @@ import ContactThumbnail from '../components/ContactThumbnail';
 import DetailListItem from "../components/DetailListItem";
 import colors from '../utils/colors';
 
-
-
 const Profile = ({navigation, route}) => {
     const [contact, setContact] = useState({});
     const {avatar, name, email, phone, cell} = contact;
@@ -36,6 +34,7 @@ const Profile = ({navigation, route}) => {
       <DetailListItem icon= "smartphone" title ="Personal" subtitle= {cell}/>
       </View>
     </View>
+    
   )
 }
 

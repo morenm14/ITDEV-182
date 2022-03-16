@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet} from 'react-native';
 import Contacts from '../screens/Contacts';
 import Favorites from '../screens/Favorites';
 import User from '../screens/User';

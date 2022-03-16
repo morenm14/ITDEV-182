@@ -27,8 +27,6 @@ const User = ({navigation}) => {
                 backgroundColor: colors.blue,
             }
         });
-
-        console.log(user);
     }, [])
 
     const {avatar, name, phone} = user;

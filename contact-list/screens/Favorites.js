@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, ActivityIndicator,} from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { fetchContacts } from '../utils/api';
 import ContactThumbnail from '../components/ContactThumbnail';

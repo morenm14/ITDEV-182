@@ -22,7 +22,7 @@ const Profile = ({navigation, route}) => {
 
     useEffect(() => {
         setContact(route.params);
-    }, [contact]);
+    }, []);
 
     
   return (

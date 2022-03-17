@@ -5,10 +5,10 @@ import Contacts from './screens/Contacts';
 import Profile from './screens/Profile';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Favorites from './screens/Favorites';
 import User from './screens/User';
 import TabNavigator from './components/TabNavigator';
+import Options from './screens/Options';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +22,7 @@ export default function App() {
         <Stack.Screen name ="Profile" component={Profile} options={{headerBackTitleVisible: false}} />
         <Stack.Screen name ="Favorites" component={Favorites} />
         <Stack.Screen name ="User" component={User} />
+        <Stack.Screen name ="Options" component={Options} options = {{presentation: 'modal'}} />
         <Stack.Screen name='Tabs' component={TabNavigator} options={{headerShown: false} }/>
       </Stack.Navigator>
       

@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import React,{useState, useEffect} from 'react';
+import { MaterialIcons } from '@expo/vector-icons';
 import ContactThumbnail from '../components/ContactThumbnail';
 import colors from '../utils/colors';
 import { fetchUserContact } from '../utils/api';
@@ -25,7 +26,13 @@ const User = ({navigation}) => {
             headerTintColor: 'white',
             headerStyle :{
                 backgroundColor: colors.blue,
-            }
+            },
+            headerRight: () => <MaterialIcons 
+                name="settings" size={24} 
+                color= "white"
+                style ={{marginRight: 10}}
+                onPress ={() => navigation.navigate('Options')}
+                 />
         });
     }, [])
 

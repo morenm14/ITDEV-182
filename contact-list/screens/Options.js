@@ -21,9 +21,9 @@ const Options = ({navigation}) => {
    
   return (
     <View style = {styles.container}>
-      <DetailListItem title='Update Profile'/>
-      <DetailListItem title='Change Language'/>
-      <DetailListItem title='Sign Out'/>
+      <DetailListItem title='Update Profile' icon='person'/>
+      <DetailListItem title='Change Language' icon='language'/>
+      <DetailListItem title='Sign Out' icon='exit-to-app'/>
     </View>
   )
 }

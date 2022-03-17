@@ -13,10 +13,16 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
   return (
-    <Drawer.Navigator initialRouteName= 'Tabs'>
-    <Drawer.Screen name ="Contacts" component={Contacts}/>
-    <Drawer.Screen name ="Faves" component={Favorites} />
-    <Drawer.Screen name ="User" component={User} />
+    <Drawer.Navigator initialRouteName= 'Contacts'>
+    <Drawer.Screen name ="Contacts" component={Contacts} options ={{drawerIcon: ({focused}) => {
+        return <Ionicons name= 'list' size= {24} color= {focused ? colors.blue : colors.greyDark}/>;
+    }}}/>
+    <Drawer.Screen name ="Faves" component={Favorites} options ={{drawerIcon: ({focused}) => {
+        return <Ionicons name= 'star' size= {24} color= {focused ? colors.blue : colors.greyDark}/>;
+    }}}/>
+    <Drawer.Screen name ="User" component={User} options ={{drawerIcon: ({focused}) => {
+        return <Ionicons name= 'person' size= {24} color= {focused ? colors.blue : colors.greyDark}/>;
+    }}}/>
     </Drawer.Navigator>
   )
 }

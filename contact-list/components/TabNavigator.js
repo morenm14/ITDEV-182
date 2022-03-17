@@ -12,11 +12,12 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions= {{
+    <Tab.Navigator initialRouteName='Contacts' screenOptions= {{
         tabBarShowLabel: false,
         tabBarInactiveTintColor: colors.greyDark,
-        
-    }}
+       
+    } 
+}
     >
     <Tab.Screen name ="Contacts" component={Contacts} options ={{tabBarIcon: ({focused}) => {
         return <Ionicons name= 'list' size= {24} color= {focused ? colors.blue : colors.greyDark}/>;

@@ -12,6 +12,7 @@ const Profile = ({navigation, route}) => {
         navigation.setOptions({
             title: name?.split(" ")[0],
             headerTintColor: 'white',
+
             headerStyle: {
                 backgroundColor: colors.blue,
             }

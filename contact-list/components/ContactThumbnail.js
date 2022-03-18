@@ -1,13 +1,7 @@
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Image,
-  Text,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import PropTypes from 'prop-types';
+import React from "react";
+import { StyleSheet, View, TouchableOpacity, Image, Text } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import PropTypes from "prop-types";
 
 export default function ContactThumbnail({
   name,
@@ -31,9 +25,9 @@ export default function ContactThumbnail({
           style={styles.avatar}
         />
       </ImageComponent>
-      {name !== '' && <Text style={[styles.name, colorStyle]}>{name}</Text>}
+      {name !== "" && <Text style={[styles.name, colorStyle]}>{name}</Text>}
 
-      {phone !== '' && (
+      {phone !== "" && (
         <View style={styles.phoneSection}>
           <Icon name="phone" size={16} style={{ color: textColor }} />
           <Text style={[styles.phone, colorStyle]}>{phone}</Text>
@@ -52,9 +46,9 @@ ContactThumbnail.propTypes = {
 };
 
 ContactThumbnail.defaultProps = {
-  name: '',
-  phone: '',
-  textColor: 'white',
+  name: "",
+  phone: "",
+  textColor: "white",
   onPress: null,
 };
 
@@ -62,31 +56,31 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 30,
     marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   avatar: {
     width: 90,
     height: 90,
     borderRadius: 45,
-    borderColor: 'white',
+    borderColor: "white",
     borderWidth: 2,
   },
   name: {
     fontSize: 20,
     marginTop: 24,
     marginBottom: 2,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   phoneSection: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   phone: {
     marginLeft: 4,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });

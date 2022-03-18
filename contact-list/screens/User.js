@@ -1,60 +1,64 @@
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
-import React,{useState, useEffect} from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
-import ContactThumbnail from '../components/ContactThumbnail';
-import colors from '../utils/colors';
-import { fetchUserContact } from '../utils/api';
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import React, { useState, useEffect } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
+import ContactThumbnail from "../components/ContactThumbnail";
+import colors from "../utils/colors";
+import { fetchUserContact } from "../utils/api";
 
-const User = ({navigation}) => {
-    const [user, setUser] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+const User = ({ navigation }) => {
+  const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-    useEffect(async () => {
-        try {
-           const user = await fetchUserContact();
-           setUser(user);
-           setLoading(false);
-           setError(false);
-            
-        } catch (error) {
-            setLoading(false);
-            setError(true);
-        }
-        navigation.setOptions({
-            title: "Me",
-            headerTintColor: 'white',
-            headerStyle :{
-                backgroundColor: colors.blue,
-            },
-            headerRight: () => <MaterialIcons 
-                name="settings" size={24} 
-                color= "white"
-                style ={{marginRight: 10}}
-                onPress ={() => navigation.navigate('Options')}
-                 />
-        });
-    }, [])
+  useEffect(async () => {
+    try {
+      const user = await fetchUserContact();
+      setUser(user);
+      setLoading(false);
+      setError(false);
+    } catch (error) {
+      setLoading(false);
+      setError(true);
+    }
+    navigation.setOptions({
+      title: "Me",
+      headerTintColor: "white",
+      headerStyle: {
+        backgroundColor: colors.blue,
+      },
+      headerRight: () => (
+        <MaterialIcons
+          name="settings"
+          size={24}
+          color="white"
+          style={{ marginRight: 10 }}
+          onPress={() => navigation.navigate("Options")}
+        />
+      ),
+    });
+  }, []);
 
-    const {avatar, name, phone} = user;
+  const { avatar, name, phone } = user;
 
   return (
-    <View style = {styles.container}>
-      {loading && <ActivityIndicator size={'large'}/>}
+    <View style={styles.container}>
+      {loading && <ActivityIndicator size={"large"} />}
       {error && <Text>Error ...</Text>}
 
-      {!loading && !error && (<ContactThumbnail avatar={avatar} name ={name} phone ={phone} />)}
+      {!loading && !error && (
+        <ContactThumbnail avatar={avatar} name={name} phone={phone} />
+      )}
     </View>
-  )
-}
+  );
+};
 
-export default User
+export default User;
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.blue,
-    }
-})
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.blue,
+  },
+});

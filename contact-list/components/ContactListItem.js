@@ -1,18 +1,16 @@
-import React from 'react';
+import React from "react";
 import {
   StyleSheet,
   View,
   TouchableHighlight,
   Text,
   Image,
-} from 'react-native';
-import PropTypes from 'prop-types';
+} from "react-native";
+import PropTypes from "prop-types";
 
-import colors from '../utils/colors';
+import colors from "../utils/colors";
 
-export default function ContactListItem({
-  name, avatar, phone, onPress,
-}) {
+export default function ContactListItem({ name, avatar, phone, onPress }) {
   return (
     <TouchableHighlight
       underlayColor={colors.grey}
@@ -49,8 +47,8 @@ const styles = StyleSheet.create({
   },
   contactInfo: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingTop: 16,
     paddingBottom: 16,
     paddingRight: 24,
@@ -63,13 +61,13 @@ const styles = StyleSheet.create({
     height: 44,
   },
   details: {
-    justifyContent: 'center',
+    justifyContent: "center",
     flex: 1,
     marginLeft: 20,
   },
   title: {
     color: colors.black,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 16,
   },
   subtitle: {

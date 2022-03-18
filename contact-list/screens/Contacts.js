@@ -1,72 +1,79 @@
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, Alert } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  ActivityIndicator,
+  Alert,
+} from "react-native";
+import React, { useState, useEffect } from "react";
 import ContactListItem from "../components/ContactListItem";
-import {fetchContacts} from "../utils/api";
+import { fetchContacts } from "../utils/api";
 
+const keyExtractor = ({ phone }) => phone;
 
-const keyExtractor =({phone}) => phone;
+const Contacts = ({ navigation: { navigate } }) => {
+  const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-const Contacts = ({navigation: {navigate}}) => {
-    const [contacts, setContacts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-
-    useEffect(async () => {
-        try {
-            const contacts = await fetchContacts();
-            setContacts(contacts);
-            setLoading(false);
-            setError(false);
-            
-        } catch (error) {
-            setError(true);
-            setLoading(false);
-            Alert.alert("Error", error, [
+  useEffect(async () => {
+    try {
+      const contacts = await fetchContacts();
+      setContacts(contacts);
+      setLoading(false);
+      setError(false);
+    } catch (error) {
+      setError(true);
+      setLoading(false);
+      Alert.alert("Error", error, [
         {
           text: "Cancel",
           onPress: () => console.log(error),
-          style: "cancel"
+          style: "cancel",
         },
-      ])
-        }
-    }, []);
-
-    const contactsSorted = contacts.sort((a, b) => a.name.localeCompare(b.name));
-    
-    const renderContact = ({item}) => {
-        const {name, avatar, phone, cell, email } = item;
-
-        return (
-            <ContactListItem 
-            name ={name} 
-            avatar ={avatar} 
-            phone ={phone} 
-            onPress={()=> navigate('Profile', {avatar, cell, phone, email, name})}/>
-        );
+      ]);
     }
+  }, []);
+
+  const contactsSorted = contacts.sort((a, b) => a.name.localeCompare(b.name));
+
+  const renderContact = ({ item }) => {
+    const { name, avatar, phone, cell, email } = item;
+
+    return (
+      <ContactListItem
+        name={name}
+        avatar={avatar}
+        phone={phone}
+        onPress={() =>
+          navigate("Profile", { avatar, cell, phone, email, name })
+        }
+      />
+    );
+  };
 
   return (
-    <View style ={styles.container}>
-    {loading && <ActivityIndicator size={'large'}/>}
-    {error && <Text>Error: {error}</Text>}
-    {!loading && !error && (
+    <View style={styles.container}>
+      {loading && <ActivityIndicator size={"large"} />}
+      {error && <Text>Error: {error}</Text>}
+      {!loading && !error && (
         <FlatList
-        data ={contactsSorted}
-        keyExtractor= {keyExtractor}
-        renderItem ={renderContact}
+          data={contactsSorted}
+          keyExtractor={keyExtractor}
+          renderItem={renderContact}
         />
-        )}
-     
+      )}
     </View>
-  )
-}
+  );
+};
 
-export default Contacts
+export default Contacts;
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'white',
-        justifyContent: 'center',
-        flex: 1
-    }
-})
+  container: {
+    backgroundColor: "white",
+    justifyContent: "center",
+    flex: 1,
+  },
+});

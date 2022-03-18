@@ -1,9 +1,9 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import PropTypes from 'prop-types';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import PropTypes from "prop-types";
 
-import colors from '../utils/colors';
+import colors from "../utils/colors";
 
 export default function DetailListItem({ icon, title, subtitle }) {
   return (
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
   },
   wrapper: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingTop: 16,
     paddingBottom: 16,
     paddingRight: 24,
@@ -56,16 +56,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   contentContainer: {
-    justifyContent: 'center',
+    justifyContent: "center",
     flex: 1,
   },
   title: {
     color: colors.black,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 16,
   },
   subtitle: {

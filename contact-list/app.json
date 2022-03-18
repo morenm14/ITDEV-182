@@ -2,6 +2,7 @@
   "expo": {
     "name": "contact-list",
     "slug": "contact-list",
+    "scheme": "contact-list",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

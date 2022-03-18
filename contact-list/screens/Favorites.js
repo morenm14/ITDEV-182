@@ -1,8 +1,10 @@
+import 'react-native-gesture-handler';
 import { StyleSheet, Text, View, FlatList, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { fetchContacts } from '../utils/api';
 import ContactThumbnail from '../components/ContactThumbnail';
-
+import { MaterialIcons } from '@expo/vector-icons';
+import colors from '../utils/colors';
 const keyExtractor = ({phone}) => phone;
 
 const Favorites = ({navigation}) => {
@@ -25,6 +27,12 @@ const Favorites = ({navigation}) => {
         }
         navigation.setOptions({
             title: "Faves",
+            headerLeft: () => <MaterialIcons 
+                name="arrow-back-ios" 
+                size={24} 
+                color= {colors.blue}
+                style ={{marginLeft: 10}}
+                onPress ={() => navigation.navigate('Contacts')}/>
         })
        
     },[]);

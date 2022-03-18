@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import ContactListItem from "../components/ContactListItem";
 import {fetchContacts} from "../utils/api";
 
+
 const keyExtractor =({phone}) => phone;
 
 const Contacts = ({navigation: {navigate}}) => {

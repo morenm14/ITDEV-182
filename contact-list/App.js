@@ -10,8 +10,9 @@ import DrawerNavigation from "./components/DrawerNavigation";
 import Options from "./screens/Options";
 import * as Linking from "expo-linking";
 
-const prefix = Linking.createURL("/");
 const Stack = createStackNavigator();
+
+const prefix = Linking.createURL("/");
 const config = {
   screens: {
     Tabs: "/",
@@ -27,7 +28,7 @@ export default function App() {
   return (
     <NavigationContainer linking={linking}>
       <StatusBar style="auto" />
-      <Stack.Navigator initialRouteName="Tabs">
+      <Stack.Navigator initialRouteName="Drawer">
         <Stack.Screen name="Contacts" component={Contacts} />
         <Stack.Screen
           name="Profile"

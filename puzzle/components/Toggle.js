@@ -4,7 +4,7 @@ import React from 'react';
 
 import Button from './Button';
 
-export default function Toggle({ options, value, onChange }) {
+export default function Toggle({ options, value, onChange}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose Size</Text>

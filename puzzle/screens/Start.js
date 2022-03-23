@@ -68,7 +68,7 @@ export default class Start extends React.Component {
         </View>
         {transitionState !== State.Launching && (
            <Animated.View style ={toggleStyle}>
-            <Toggle options={BOARD_SIZES} value={size} onChange ={onChangeSize}/>
+            <Toggle options={BOARD_SIZES} value={size} onChange ={onChangeSize} />
           </Animated.View>
         )}
        {transitionState !== State.Launching && (

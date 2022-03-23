@@ -3,9 +3,8 @@ import {
   ColorPropType,
   Easing,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
-  View,
+
 } from 'react-native';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -39,7 +38,9 @@ export default class Button extends React.Component {
 
   constructor(props){
     super(props);
+
     const {disabled } = props;
+
     this.state = {pressed: false};
     this.value = new Animated.Value(getValue(false, disabled));
   }
@@ -51,26 +52,63 @@ export default class Button extends React.Component {
           duration: 200,
           toValue: getValue(nextState.pressed, nextProps.disabled),
           easing:Easing.out(Easing.quad),
+          useNativeDriver: false,
         }).start();
       }
   }
 
-  componentWillUpdate(nextProps, nextState){
+  UNSAFE_componentWillUpdate(nextProps, nextState){
     this.updateValue(nextProps, nextState);
   }
 
-  componentWillReceiveProps(nextProps, nextState){
+  UNSAFE_componentWillReceiveProps(nextProps, nextState){
     this.updateValue(nextProps, nextState);
+  }
+
+  handlePressIn =()=>{
+    this.setState({pressed: true});
+      }
+
+  handlePressOut =() => {
+    this.setState({pressed: false});
   }
 
   render() {
-    const { title, height } = this.props;
+    const {
+      props: { title, onPress, color, height, borderRadius, fontSize },
+    } = this;
+
+    const animatedColor  = this.value.interpolate({
+      inputRange:[0,1],
+      outputRange: ['black', color],
+    });
+
+    const animatedScale = this.value.interpolate({
+      inputRange: [0,1],
+      outputRange: [0.8,1],
+    });
+
+    const containerStyle ={
+      borderColor: animatedColor,
+      borderRadius,
+      height,
+      transform: [{scale: animatedScale}]
+    };
+
+    const titleStyle ={
+      color: animatedColor,
+      fontSize,
+    };
 
     return (
-      <TouchableWithoutFeedback>
-        <View style={[styles.container, { height }]}>
-          <Text>{title}</Text>
-        </View>
+      <TouchableWithoutFeedback
+        onPress={onPress}
+        onPressIn={this.handlePressIn}
+        onPressOut={this.handlePressOut}
+      >
+       <Animated.View style ={[styles.container, containerStyle]}>
+          <Animated.Text style ={[styles.title, titleStyle]}>{title}</Animated.Text>
+       </Animated.View>
       </TouchableWithoutFeedback>
     );
   }
@@ -84,6 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#1F1E2A',
     borderWidth: 2,
+    
   },
   title: {
     backgroundColor: 'transparent',

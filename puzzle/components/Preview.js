@@ -14,6 +14,7 @@ export default function Preview({ image, boardSize }) {
   };
 
   return (
+    
     <View style={styles.container}>
       <Image style={[styles.image, style]} source={image} />
     </View>

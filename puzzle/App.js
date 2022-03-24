@@ -40,7 +40,8 @@ export default class App extends Component {
 
     Image.prefetch(image.uri);
 
-    this.setState({ image });
+    this.setState({ image});
+    
   }
 
   handleChangeSize = size => {
@@ -64,6 +65,7 @@ export default class App extends Component {
   };
   render() {
     const { size, puzzle, image } = this.state;
+    
     return (
       <LinearGradient style={styles.background} colors={BACKGROUND_COLORS}>
         <StatusBar barStyle={'light-content'} />

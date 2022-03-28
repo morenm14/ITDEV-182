@@ -14,6 +14,9 @@
 		5408D2B6482CFFDD098351A6 /* libPods-PieChart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA59740AFD9E63DCA54B3474 /* libPods-PieChart.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		90A2034E8EEC928A0BF237E3 /* libPods-PieChart-PieChartTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C9A37FF49F9C94AC1AD3A0 /* libPods-PieChart-PieChartTests.a */; };
+		AC69039427F20535004C6B82 /* PieChart_C.m in Sources */ = {isa = PBXBuildFile; fileRef = AC69039327F20535004C6B82 /* PieChart_C.m */; };
+		ACBA818427F2026E00E90F12 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBA818327F2026E00E90F12 /* PieChartView.swift */; };
+		ACBA818627F202BF00E90F12 /* PieChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBA818527F202BF00E90F12 /* PieChartManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,10 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PieChart/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89B220D8277616F3FD6D9A08 /* Pods-PieChart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PieChart.debug.xcconfig"; path = "Target Support Files/Pods-PieChart/Pods-PieChart.debug.xcconfig"; sourceTree = "<group>"; };
 		A30FA937B37258918CEFD6D9 /* Pods-PieChart-PieChartTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PieChart-PieChartTests.release.xcconfig"; path = "Target Support Files/Pods-PieChart-PieChartTests/Pods-PieChart-PieChartTests.release.xcconfig"; sourceTree = "<group>"; };
+		AC69039327F20535004C6B82 /* PieChart_C.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PieChart_C.m; sourceTree = "<group>"; };
+		ACBA818227F2026E00E90F12 /* PieChart-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PieChart-Bridging-Header.h"; sourceTree = "<group>"; };
+		ACBA818327F2026E00E90F12 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
+		ACBA818527F202BF00E90F12 /* PieChartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartManager.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FA59740AFD9E63DCA54B3474 /* libPods-PieChart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PieChart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -92,6 +99,10 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				ACBA818327F2026E00E90F12 /* PieChartView.swift */,
+				ACBA818227F2026E00E90F12 /* PieChart-Bridging-Header.h */,
+				ACBA818527F202BF00E90F12 /* PieChartManager.swift */,
+				AC69039327F20535004C6B82 /* PieChart_C.m */,
 			);
 			name = PieChart;
 			sourceTree = "<group>";
@@ -145,7 +156,6 @@
 				0680A1744B75ED032E042F0E /* Pods-PieChart-PieChartTests.debug.xcconfig */,
 				A30FA937B37258918CEFD6D9 /* Pods-PieChart-PieChartTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -202,13 +212,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1210;
+				ORGANIZATIONNAME = "Mario Moreno";
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1310;
 					};
 				};
 			};
@@ -411,8 +422,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACBA818427F2026E00E90F12 /* PieChartView.swift in Sources */,
+				AC69039427F20535004C6B82 /* PieChart_C.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				ACBA818627F202BF00E90F12 /* PieChartManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +445,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0680A1744B75ED032E042F0E /* Pods-PieChart-PieChartTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -458,6 +473,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A30FA937B37258918CEFD6D9 /* Pods-PieChart-PieChartTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = PieChartTests/Info.plist;
@@ -498,6 +514,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = PieChart;
+				SWIFT_OBJC_BRIDGING_HEADER = "PieChart-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -523,6 +540,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = PieChart;
+				SWIFT_OBJC_BRIDGING_HEADER = "PieChart-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

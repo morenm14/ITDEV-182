@@ -8,20 +8,26 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.facebook.react.bridge.ReactApplicationContext;
+
 
 import java.util.ArrayList;
 
 public class PieChartManager extends SimpleViewManager<PieChartView> {
 
     public static final String REACT_CLASS = "PieChart";
+    ReactApplicationContext mCallerContext;
 
+    public PieChartManager(ReactApplicationContext reactContext) {
+        mCallerContext = reactContext;
+    }
     @Override
     public String getName() {
         return REACT_CLASS;
     }
 
     @Override
-    protected PieChartView createViewInstance(ThemedReactContext reactContext) {
+    public PieChartView createViewInstance(ThemedReactContext reactContext) {
         return new PieChartView(reactContext);
     }
 

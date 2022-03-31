@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class PieChartPackage implements ReactPackage {
-
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
@@ -22,5 +21,7 @@ public class PieChartPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Collections.emptyList();
     }
+
+
 
 }

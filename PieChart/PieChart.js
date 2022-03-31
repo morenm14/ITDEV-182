@@ -5,50 +5,46 @@ import {
   StyleSheet,
   ViewPropTypes,
   requireNativeComponent,
-  processColor
+  processColor,
 } from "react-native";
 
-export default class PieChart extends React.Component {
+export default class PieChartView extends React.Component {
   static propTypes = {
     data: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.number,
-        color: ColorPropType
-      })
+        color: ColorPropType,
+      }),
     ).isRequired,
     strokeWidth: PropTypes.number,
     strokeColor: ColorPropType,
-    ...ViewPropTypes
+    ...ViewPropTypes,
   };
 
   static defaultProps = {
     data: [],
     strokeWidth: 0,
-    strokeColor: "transparent"
+    strokeColor: "transparent",
   };
 
   render() {
-    const { style, data, ...rest } = this.props;
+    const {style, data, ...rest} = this.props;
 
     const processedData = data.map(item => ({
       value: item.value,
-      color: processColor(item.color)
+      color: processColor(item.color),
     }));
 
     return (
-      <NativePieChart
-        {...rest}
-        style={[styles.container, style]}
-        data={processedData}
-      />
+      <View {...rest} style={[styles.container, style]} data={processedData} />
     );
   }
 }
 
-const NativePieChart = requireNativeComponent("PieChart", PieChart);
+const View = requireNativeComponent("PieChart", PieChartView);
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "transparent"
-  }
+    backgroundColor: "transparent",
+  },
 });

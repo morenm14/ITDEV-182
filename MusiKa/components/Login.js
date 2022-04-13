@@ -1,7 +1,8 @@
 import { StyleSheet, View, Image, Button, Platform } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { useAuthRequest, ResponseType } from 'expo-auth-session';
+import { useAuthRequest, ResponseType, TokenResponse } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import config from '../config';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -10,7 +11,7 @@ const discovery = {
     tokenEndpoint: 'https://accounts.spotify.com/api/token',
 };
 
-const Login = () => {
+const Login = ({ navigation }) => {
     const [token, setToken] = useState('');
 
     const CLIENT_ID = config.CLIENT_ID;
@@ -44,10 +45,17 @@ const Login = () => {
     );
 
     useEffect(() => {
+        console.log(response);
         if (response?.type === 'success') {
-            const { access_token } = response.params;
-            setToken(access_token);
+            const { accessToken } = TokenResponse.fromQueryParams(
+                response.params
+            );
+            setToken(accessToken);
+        }
+
+        if (token) {
             console.log('access token: ', token);
+            navigation.navigate('Home');
         }
     }, [response]);
 
@@ -56,7 +64,6 @@ const Login = () => {
             <Image style={styles.logo} source={require('../assets/logo.png')} />
             <View style={styles.button}>
                 <Button
-                    disabled={!request}
                     title="Login"
                     color={Platform.OS === 'ios' ? '#FFFFFF' : '#1DB954'}
                     onPress={() => {
@@ -80,10 +87,13 @@ const styles = StyleSheet.create({
     logo: {
         width: 200,
         height: 200,
+        alignSelf: 'center',
     },
     button: {
         backgroundColor: Platform.OS === 'ios' ? '#1DB954' : '#fff',
         padding: 5,
+        width: 300,
         borderRadius: 25,
+        alignSelf: 'center',
     },
 });

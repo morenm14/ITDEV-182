@@ -5,6 +5,7 @@ import { userState } from '../atoms/userAtom';
 import { tokenState } from '../atoms/tokenAtom';
 import { categoriesState } from '../atoms/musicAtom';
 import SpotifyWebApi from 'spotify-web-api-node';
+
 const spotify = new SpotifyWebApi();
 
 const Home = () => {

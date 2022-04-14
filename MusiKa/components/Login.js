@@ -1,18 +1,17 @@
 import { StyleSheet, View, Image, Button, Platform } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import { useAuthRequest, ResponseType, TokenResponse } from 'expo-auth-session';
-import * as WebBrowser from 'expo-web-browser';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useEffect } from 'react';
+import { useAuthRequest, ResponseType } from 'expo-auth-session';
+import { useRecoilState } from 'recoil';
+import { tokenState } from '../atoms/tokenAtom';
 import config from '../config';
 
-WebBrowser.maybeCompleteAuthSession();
 const discovery = {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
     tokenEndpoint: 'https://accounts.spotify.com/api/token',
 };
 
 const Login = ({ navigation }) => {
-    const [token, setToken] = useState('');
+    const [token, setToken] = useRecoilState(tokenState);
 
     const CLIENT_ID = config.CLIENT_ID;
     const CLIENT_SECRET = config.CLIENT_SECRET;
@@ -28,7 +27,6 @@ const Login = ({ navigation }) => {
                 'playlist-modify-public',
                 'user-read-private',
                 'streaming',
-                'user-library-modify',
                 'user-library-read',
                 'user-modify-playback-state',
                 'user-read-playback-state',
@@ -44,18 +42,20 @@ const Login = ({ navigation }) => {
         discovery
     );
 
-    useEffect(() => {
-        console.log(response);
-        if (response?.type === 'success') {
-            const { accessToken } = TokenResponse.fromQueryParams(
-                response.params
-            );
-            setToken(accessToken);
-        }
-
+    const activateToken = () => {
         if (token) {
             console.log('access token: ', token);
-            navigation.navigate('Home');
+            navigation.replace('Home');
+        } else {
+            return <Login />;
+        }
+    };
+
+    useEffect(() => {
+        console.log('response', response);
+        if (response?.type === 'success' && !token) {
+            const { access_token } = response.params;
+            setToken(access_token);
         }
     }, [response]);
 
@@ -64,11 +64,18 @@ const Login = ({ navigation }) => {
             <Image style={styles.logo} source={require('../assets/logo.png')} />
             <View style={styles.button}>
                 <Button
-                    title="Login"
+                    disabled={!request}
+                    title={!token ? 'Get Token' : 'Use Token'}
                     color={Platform.OS === 'ios' ? '#FFFFFF' : '#1DB954'}
-                    onPress={() => {
-                        promptAsync();
-                    }}
+                    onPress={
+                        !token
+                            ? () => {
+                                  promptAsync();
+                              }
+                            : () => {
+                                  activateToken();
+                              }
+                    }
                 />
             </View>
         </View>
@@ -88,6 +95,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200,
         alignSelf: 'center',
+        marginTop: -100,
     },
     button: {
         backgroundColor: Platform.OS === 'ios' ? '#1DB954' : '#fff',

@@ -1,8 +1,15 @@
-import { StyleSheet, View, Image, Button, Platform } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Image,
+    Button,
+    Platform,
+    StatusBar,
+} from 'react-native';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { useAuthRequest, ResponseType } from 'expo-auth-session';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import colors from '../utils/colors';
 import { useRecoilState } from 'recoil';
 import { tokenState } from '../atoms/tokenAtom';
 import config from '../config';
@@ -34,6 +41,7 @@ const Login = ({ navigation }) => {
                 'user-read-playback-state',
                 'playlist-read-collaborative',
                 'playlist-modify-private',
+                'playlist-read-private',
                 'playlist-modify-public',
             ],
             // In order to follow the "Authorization Code Flow" to fetch token after authorizationEndpoint
@@ -83,11 +91,19 @@ const Login = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Image style={styles.logo} source={require('../assets/logo.png')} />
+            <StatusBar
+                barStyle="light-content"
+                backgroundColor={colors.greyDark}
+            />
+
+            <Image
+                style={styles.logo}
+                source={require('../assets/Spotify_Icon_RGB_Green.png')}
+            />
             <View style={styles.button}>
                 <Button
                     disabled={!request}
-                    title={'SING IN WITH SPOTIFY'}
+                    title={'SING IN'}
                     color={Platform.OS === 'ios' ? '#FFFFFF' : '#1DB954'}
                     onPress={() => promptAsync()}
                 />
@@ -103,18 +119,19 @@ const styles = StyleSheet.create({
         flex: 1,
         alignContent: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: colors.greyDark,
     },
     logo: {
-        width: 200,
-        height: 200,
+        width: 120,
+        height: 120,
         alignSelf: 'center',
-        marginTop: -100,
+        marginBottom: 20,
+        marginTop: -120,
     },
     button: {
         backgroundColor: Platform.OS === 'ios' ? '#1DB954' : '#fff',
         padding: 5,
-        width: 300,
+        width: 200,
         borderRadius: 25,
         alignSelf: 'center',
     },

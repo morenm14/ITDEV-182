@@ -1,6 +1,8 @@
 import { StyleSheet, View, Image, Button, Platform } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useAuthRequest, ResponseType } from 'expo-auth-session';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { useRecoilState } from 'recoil';
 import { tokenState } from '../atoms/tokenAtom';
 import config from '../config';
@@ -42,21 +44,41 @@ const Login = ({ navigation }) => {
         discovery
     );
 
-    const activateToken = () => {
-        if (token) {
-            console.log('access token: ', token);
-            navigation.replace('Home');
-        } else {
-            return <Login />;
+    //save token to local storage
+    const saveToken = async (value) => {
+        try {
+            await AsyncStorage.setItem('accessToken', value);
+        } catch (e) {
+            console.log(e);
         }
     };
 
-    useEffect(() => {
-        console.log('response', response);
-        if (response?.type === 'success' && !token) {
-            const { access_token } = response.params;
-            setToken(access_token);
+    const getToken = async () => {
+        try {
+            const value = await AsyncStorage.getItem('accessToken');
+            if (value !== null) {
+                setToken(value);
+                navigation.replace('Home');
+                console.log('token from value: ', value);
+            }
+        } catch (e) {
+            console.log('Error: ', error);
         }
+    };
+
+    useLayoutEffect(() => {
+        try {
+            if (response.type === 'success') {
+                const { access_token } = response.params;
+                saveToken(access_token);
+                setToken(access_token);
+                console.log('token', token);
+            }
+        } catch (error) {
+            console.log('Error: ', error);
+        }
+
+        getToken();
     }, [response]);
 
     return (
@@ -65,17 +87,9 @@ const Login = ({ navigation }) => {
             <View style={styles.button}>
                 <Button
                     disabled={!request}
-                    title={!token ? 'Get Token' : 'Use Token'}
+                    title={'SING IN WITH SPOTIFY'}
                     color={Platform.OS === 'ios' ? '#FFFFFF' : '#1DB954'}
-                    onPress={
-                        !token
-                            ? () => {
-                                  promptAsync();
-                              }
-                            : () => {
-                                  activateToken();
-                              }
-                    }
+                    onPress={() => promptAsync()}
                 />
             </View>
         </View>

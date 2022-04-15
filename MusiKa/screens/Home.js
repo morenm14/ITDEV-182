@@ -1,14 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState } from '../atoms/userAtom';
 import { tokenState } from '../atoms/tokenAtom';
 import { categoriesState } from '../atoms/musicAtom';
 import SpotifyWebApi from 'spotify-web-api-node';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const spotify = new SpotifyWebApi();
 
-const Home = () => {
+const Home = ({ navigation }) => {
     const [user, setUser] = useRecoilState(userState);
     const [categories, setCategories] = useRecoilState(categoriesState);
     const token = useRecoilValue(tokenState);
@@ -28,7 +29,7 @@ const Home = () => {
             .getCategories({
                 limit: 20,
                 offset: 0,
-                country: 'SE',
+                country: 'US',
                 locale: 'sv_SE',
             })
             .then(
@@ -50,6 +51,13 @@ const Home = () => {
                     {item.name}
                 </Text>
             ))}
+            <Button
+                title="LOG OUT"
+                onPress={() => {
+                    AsyncStorage.removeItem('accessToken');
+                    navigation.replace('Login');
+                }}
+            />
         </View>
     );
 };

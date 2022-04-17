@@ -5,6 +5,10 @@ import {
     Button,
     StatusBar,
     ScrollView,
+    Image,
+    TouchableOpacity,
+    SafeAreaView,
+    FlatList,
 } from 'react-native';
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -15,12 +19,14 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import colors from '../utils/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Profile from '../components/Profile';
+import Card from '../components/Card';
+import { getPlaylistTracks } from '../utils/api';
 
 const spotify = new SpotifyWebApi();
 
 const Home = ({ navigation }) => {
     const [, setUser] = useRecoilState(userState);
-    const [categories, setCategories] = useRecoilState(categoriesState);
+    const [, setCategories] = useRecoilState(categoriesState);
     const [playlists, setPlaylists] = useRecoilState(myPlaylists);
     const [, setAvatar] = useRecoilState(userAvatar);
     const user = useRecoilValue(userState);
@@ -60,13 +66,37 @@ const Home = ({ navigation }) => {
         spotify.getUserPlaylists(user).then(
             function (data) {
                 console.log('Retrieved playlists', data.body);
-                setPlaylists(data.body.items);
+                setPlaylists(
+                    data.body.items.map((item) => {
+                        return {
+                            name: item.name,
+                            id: item.id,
+                            image: item.images[0].url,
+                            tracks: item.tracks.href,
+                        };
+                    })
+                );
+                console.log('created playlists', playlists);
             },
             function (err) {
                 console.log('Something went wrong!', err);
             }
         );
-    }, []);
+    }, [user]);
+
+    const renderItem = ({ item }) => {
+        return (
+            <Card
+                key={item.id}
+                imageSource={{ url: item.image }}
+                name={item.name}
+                onPress={() => {
+                    getPlaylistTracks(item.id, token);
+                    navigation.navigate('Playlist', item.name);
+                }}
+            />
+        );
+    };
 
     return (
         <View style={styles.container}>
@@ -75,13 +105,14 @@ const Home = ({ navigation }) => {
                 backgroundColor={colors.greyDark}
             />
             <Profile />
-            <ScrollView style={styles.playlists}>
-                {playlists.map((item) => (
-                    <Text key={item.id} style={styles.text}>
-                        {item.name}
-                    </Text>
-                ))}
-            </ScrollView>
+
+            <FlatList
+                style={styles.list}
+                data={playlists}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                numColumns={2}
+            />
 
             <Button
                 title="LOG OUT"
@@ -107,5 +138,9 @@ const styles = StyleSheet.create({
     },
     playlists: {
         padding: 20,
+    },
+    list: {
+        flex: 1,
+        alignContent: 'center',
     },
 });

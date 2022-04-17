@@ -7,5 +7,5 @@ export const userState = atom({
 
 export const userAvatar = atom({
     key: 'avatar',
-    default: 'mmfuentes',
+    default: 'user',
 });

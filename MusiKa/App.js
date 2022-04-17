@@ -7,6 +7,7 @@ import colors from './utils/colors';
 
 import Login from './components/Login';
 import Home from './screens/Home';
+import Playlist from './screens/Playlist';
 import { RecoilRoot } from 'recoil';
 const Stack = createStackNavigator();
 
@@ -35,6 +36,7 @@ export default function App() {
                             headerShown: false,
                         }}
                     />
+                    <Stack.Screen name="Playlist" component={Playlist} />
                 </Stack.Navigator>
             </NavigationContainer>
         </RecoilRoot>

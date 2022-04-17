@@ -88,7 +88,7 @@ const Home = ({ navigation }) => {
         return (
             <Card
                 key={item.id}
-                imageSource={{ url: item.image }}
+                imageSource={{ uri: item.image }}
                 name={item.name}
                 onPress={() => {
                     getPlaylistTracks(item.id, token);

@@ -6,7 +6,7 @@ import {
     Platform,
     StatusBar,
 } from 'react-native';
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useAuthRequest, ResponseType } from 'expo-auth-session';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../utils/colors';
@@ -56,6 +56,7 @@ const Login = ({ navigation }) => {
     const saveToken = async (value) => {
         try {
             await AsyncStorage.setItem('accessToken', value);
+            console.log('SAVED TOKEN', value);
         } catch (e) {
             console.log(e);
         }
@@ -65,9 +66,9 @@ const Login = ({ navigation }) => {
         try {
             const value = await AsyncStorage.getItem('accessToken');
             if (value !== null) {
+                navigation.navigate('Home', { screen: 'Start' });
                 setToken(value);
-                navigation.replace('Home');
-                console.log('token from value: ', value);
+                console.log('token from storage: ', value);
             }
         } catch (e) {
             console.log('Error: ', error);

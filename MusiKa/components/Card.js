@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        height: 150,
-        width: 150,
+        height: 170,
+        width: 170,
         marginBottom: 5,
     },
     name: {

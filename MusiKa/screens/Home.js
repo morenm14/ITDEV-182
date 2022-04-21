@@ -1,23 +1,12 @@
-import {
-    StyleSheet,
-    Text,
-    View,
-    Button,
-    StatusBar,
-    ScrollView,
-    Image,
-    TouchableOpacity,
-    SafeAreaView,
-    FlatList,
-} from 'react-native';
-import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { StyleSheet, View, Button, StatusBar, FlatList } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useLayoutEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { userState, userAvatar } from '../atoms/userAtom';
 import { tokenState } from '../atoms/tokenAtom';
 import { categoriesState, myPlaylists } from '../atoms/musicAtom';
 import SpotifyWebApi from 'spotify-web-api-node';
 import colors from '../utils/colors';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Profile from '../components/Profile';
 import Card from '../components/Card';
 import { getPlaylistTracks } from '../utils/api';
@@ -25,14 +14,13 @@ import { getPlaylistTracks } from '../utils/api';
 const spotify = new SpotifyWebApi();
 
 const Home = ({ navigation }) => {
-    const [, setUser] = useRecoilState(userState);
+    const [user, setUser] = useRecoilState(userState);
     const [, setCategories] = useRecoilState(categoriesState);
     const [playlists, setPlaylists] = useRecoilState(myPlaylists);
     const [, setAvatar] = useRecoilState(userAvatar);
-    const user = useRecoilValue(userState);
-    const token = useRecoilValue(tokenState);
+    const [token, setToken] = useRecoilState(tokenState);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         spotify.setAccessToken(token);
         //get user info
         spotify.getMe().then(
@@ -85,17 +73,33 @@ const Home = ({ navigation }) => {
     }, [user]);
 
     const renderItem = ({ item }) => {
+        const { name, id, image } = item;
         return (
             <Card
-                key={item.id}
-                imageSource={{ uri: item.image }}
-                name={item.name}
+                key={id}
+                imageSource={{ uri: image }}
+                name={name}
                 onPress={() => {
-                    getPlaylistTracks(item.id, token);
-                    navigation.navigate('Playlist', item.name);
+                    getPlaylistTracks(id, token);
+                    navigation.navigate('Playlist', {
+                        name,
+                        image,
+                        id,
+                    });
                 }}
             />
         );
+    };
+
+    const handleLogout = async () => {
+        try {
+            await AsyncStorage.removeItem('accessToken');
+            console.log('Token removed from storage');
+            setToken('');
+            navigation.navigate('Login');
+        } catch (error) {
+            console.log('error');
+        }
     };
 
     return (
@@ -105,7 +109,6 @@ const Home = ({ navigation }) => {
                 backgroundColor={colors.greyDark}
             />
             <Profile />
-
             <FlatList
                 style={styles.list}
                 data={playlists}
@@ -114,13 +117,7 @@ const Home = ({ navigation }) => {
                 numColumns={2}
             />
 
-            <Button
-                title="LOG OUT"
-                onPress={() => {
-                    AsyncStorage.removeItem('accessToken');
-                    navigation.replace('Login');
-                }}
-            />
+            <Button title="LOG OUT" onPress={handleLogout} />
         </View>
     );
 };

@@ -13,7 +13,7 @@ const Profile = () => {
                 <Avatar />
             </View>
             <View style={styles.userContainer}>
-                <Text style={styles.library}>Your Library</Text>
+                <Text style={styles.library}>My Music</Text>
                 <Text style={styles.user}>{user}</Text>
             </View>
         </SafeAreaView>

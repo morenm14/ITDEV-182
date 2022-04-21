@@ -21,7 +21,7 @@ const Main = () => {
             {token ? (
                 <Tab.Navigator
                     screenOptions={{
-                        headerStyle: { backgroundColor: colors.greyDark },
+                        headerStyle: { backgroundColor: 'transparent' },
                         headerTintColor: colors.green,
                         headerShadowVisible: false,
                         headerShown: false,

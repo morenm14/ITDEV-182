@@ -4,12 +4,11 @@ import React, { useLayoutEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState, userAvatar } from '../atoms/userAtom';
 import { tokenState } from '../atoms/tokenAtom';
-import { categoriesState, myPlaylists } from '../atoms/musicAtom';
+import { categoriesState, myPlaylists, tracksState } from '../atoms/musicAtom';
 import SpotifyWebApi from 'spotify-web-api-node';
 import colors from '../utils/colors';
 import Profile from '../components/Profile';
 import Card from '../components/Card';
-import { getPlaylistTracks } from '../utils/api';
 
 const spotify = new SpotifyWebApi();
 
@@ -19,6 +18,7 @@ const Home = ({ navigation }) => {
     const [playlists, setPlaylists] = useRecoilState(myPlaylists);
     const [, setAvatar] = useRecoilState(userAvatar);
     const [token, setToken] = useRecoilState(tokenState);
+    const [tracks, setTracks] = useRecoilState(tracksState);
 
     useLayoutEffect(() => {
         spotify.setAccessToken(token);
@@ -72,6 +72,26 @@ const Home = ({ navigation }) => {
         );
     }, [user]);
 
+    const renderTracks = (id) => {
+        spotify.getPlaylistTracks(id, { limit: 5, offset: 1 }).then(
+            function (data) {
+                console.log('Tracks Data', data.body);
+                setTracks(
+                    data.body.items.map((item) => {
+                        return {
+                            id: item.track.id,
+                            name: item.track.name,
+                        };
+                    })
+                );
+                console.log(tracks);
+            },
+            function (err) {
+                console.log('Something went wrong!', err);
+            }
+        );
+    };
+
     const renderItem = ({ item }) => {
         const { name, id, image } = item;
         return (
@@ -80,7 +100,7 @@ const Home = ({ navigation }) => {
                 imageSource={{ uri: image }}
                 name={name}
                 onPress={() => {
-                    getPlaylistTracks(id, token);
+                    renderTracks(id);
                     navigation.navigate('Playlist', {
                         name,
                         image,

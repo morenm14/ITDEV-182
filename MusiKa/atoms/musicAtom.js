@@ -6,6 +6,11 @@ export const categoriesState = atom({
 });
 
 export const myPlaylists = atom({
-    key: 'myPlaylists',
+    key: 'playlists',
+    default: [],
+});
+
+export const tracksState = atom({
+    key: 'tracks',
     default: [],
 });

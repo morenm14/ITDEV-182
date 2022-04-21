@@ -1,21 +1,24 @@
-import { StyleSheet, Text, View, SafeAreaView, StatusBar } from 'react-native';
+import { StyleSheet, Text, StatusBar, ScrollView } from 'react-native';
 import React from 'react';
 import colors from '../utils/colors';
+import { useRecoilValue } from 'recoil';
+import { tracksState } from '../atoms/musicAtom';
+import PlaylistCover from '../components/PlaylistCover';
 
 const Playlist = ({ route }) => {
-    const { name, image, id } = route.params;
+    const { name, image } = route.params;
+    const tracks = useRecoilValue(tracksState);
+
     return (
-        <SafeAreaView>
-            <StatusBar
-                barStyle="light-content"
-                backgroundColor={colors.greyDark}
-            />
-            <View style={styles.container}>
-                <Text style={styles.text}>{name}</Text>
-                <Text style={styles.text}>{image}</Text>
-                <Text style={styles.text}>{id}</Text>
-            </View>
-        </SafeAreaView>
+        <ScrollView style={styles.container}>
+            <StatusBar barStyle="light-content" />
+            <PlaylistCover title={name} imageSource={image} />
+            {tracks.map((track) => (
+                <Text key={track.id} style={styles.name}>
+                    {track.name}
+                </Text>
+            ))}
+        </ScrollView>
     );
 };
 
@@ -23,11 +26,13 @@ export default Playlist;
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
+        flex: 1,
         backgroundColor: colors.greyDark,
     },
-    text: {
-        fontSize: 18,
+    name: {
         color: 'white',
+        fontSize: 18,
+        marginTop: 30,
+        marginLeft: 20,
     },
 });

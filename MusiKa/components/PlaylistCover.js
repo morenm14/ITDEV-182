@@ -14,7 +14,7 @@ const PlaylistCover = ({ title, imageSource }) => {
                     <Image source={{ uri: imageSource }} style={styles.image} />
                 </LinearGradient>
                 <LinearGradient
-                    colors={['transparent', 'rgba(0,0,0,2)']}
+                    colors={['transparent', 'rgba(0,0,0,0.9)']}
                     style={styles.fade}
                 />
             </View>
@@ -44,9 +44,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     fade: {
-        height: 90,
+        height: 100,
         width: '100%',
-        marginTop: -90,
+        marginTop: -100,
     },
     title: {
         fontSize: 28,
@@ -54,5 +54,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: -50,
         marginLeft: 10,
+        marginBottom: 30,
     },
 });

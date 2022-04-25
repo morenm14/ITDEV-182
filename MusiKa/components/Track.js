@@ -1,20 +1,20 @@
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native';
 import React from 'react';
 import colors from '../utils/colors';
 
-const Player = ({ imageSource, name, onPress, artist }) => {
+const Track = ({ imageSource, name, onPress, artist }) => {
     return (
-        <View style={styles.container} onPress={onPress}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <Image source={{ uri: imageSource }} style={styles.image} />
             <View style={styles.credits}>
                 <Text style={styles.name}>{name}</Text>
                 <Text style={styles.artist}>{artist}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
-export default Player;
+export default Track;
 
 const styles = StyleSheet.create({
     container: {

@@ -1,11 +1,18 @@
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    SafeAreaView,
+    TouchableOpacity,
+} from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../atoms/userAtom';
 import Avatar from '../components/Avatar';
 import colors from '../utils/colors';
 
-const Profile = () => {
+const Profile = ({ onPress }) => {
     const user = useRecoilValue(userState);
     return (
         <SafeAreaView style={styles.container}>
@@ -16,6 +23,10 @@ const Profile = () => {
                 <Text style={styles.library}>My Music</Text>
                 <Text style={styles.user}>{user}</Text>
             </View>
+
+            <TouchableOpacity style={styles.logoutIcon} onPress={onPress}>
+                <Ionicons name="log-out-outline" size={32} color="green" />
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };
@@ -43,5 +54,10 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         marginBottom: 3,
+    },
+    logoutIcon: {
+        flex: 1,
+        alignItems: 'flex-end',
+        marginRight: 20,
     },
 });

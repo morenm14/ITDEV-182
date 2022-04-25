@@ -3,6 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { tokenState } from './atoms/tokenAtom';
 import { useRecoilValue } from 'recoil';
 import colors from './utils/colors';
@@ -28,16 +29,71 @@ const Main = () => {
                         tabBarActiveTintColor: colors.green,
                         tabBarStyle: {
                             paddingTop: 10,
-                            height: 90,
+                            paddingBottom: 20,
+                            height: 80,
                             backgroundColor: colors.greyDark,
                         },
                         tabBarShowLabel: true,
                         tabShadows: false,
                     }}
                 >
-                    <Tab.Screen name="Home" component={HomeStack} />
-                    <Tab.Screen name="Search" component={Search} />
-                    <Tab.Screen name="Browse" component={Browse} />
+                    <Tab.Screen
+                        name="Home"
+                        component={HomeStack}
+                        options={{
+                            tabBarIcon: ({ focused }) => {
+                                return (
+                                    <Ionicons
+                                        name="home"
+                                        size={30}
+                                        color={
+                                            focused
+                                                ? colors.green
+                                                : colors.greyLight
+                                        }
+                                    />
+                                );
+                            },
+                        }}
+                    />
+                    <Tab.Screen
+                        name="Search"
+                        component={Search}
+                        options={{
+                            tabBarIcon: ({ focused }) => {
+                                return (
+                                    <Ionicons
+                                        name="search"
+                                        size={30}
+                                        color={
+                                            focused
+                                                ? colors.green
+                                                : colors.greyLight
+                                        }
+                                    />
+                                );
+                            },
+                        }}
+                    />
+                    <Tab.Screen
+                        name="Browse"
+                        component={Browse}
+                        options={{
+                            tabBarIcon: ({ focused }) => {
+                                return (
+                                    <Ionicons
+                                        name="albums"
+                                        size={30}
+                                        color={
+                                            focused
+                                                ? colors.green
+                                                : colors.greyLight
+                                        }
+                                    />
+                                );
+                            },
+                        }}
+                    />
                 </Tab.Navigator>
             ) : (
                 <Stack.Navigator initialRouteName="Login">

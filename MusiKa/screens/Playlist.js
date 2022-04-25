@@ -1,9 +1,10 @@
-import { StyleSheet, Text, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, StatusBar, ScrollView } from 'react-native';
 import React from 'react';
 import colors from '../utils/colors';
 import { useRecoilValue } from 'recoil';
 import { tracksState } from '../atoms/musicAtom';
 import PlaylistCover from '../components/PlaylistCover';
+import Track from '../components/Track';
 
 const Playlist = ({ route }) => {
     const { name, image } = route.params;
@@ -14,9 +15,12 @@ const Playlist = ({ route }) => {
             <StatusBar barStyle="light-content" />
             <PlaylistCover title={name} imageSource={image} />
             {tracks.map((track) => (
-                <Text key={track.id} style={styles.name}>
-                    {track.name}
-                </Text>
+                <Track
+                    key={track.id}
+                    imageSource={track.imageUrl}
+                    name={track.name}
+                    artist={track.artist}
+                />
             ))}
         </ScrollView>
     );
@@ -31,8 +35,8 @@ const styles = StyleSheet.create({
     },
     name: {
         color: 'white',
-        fontSize: 18,
-        marginTop: 30,
+        fontSize: 12,
+        marginTop: 20,
         marginLeft: 20,
     },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Button, StatusBar, FlatList } from 'react-native';
+import { StyleSheet, View, StatusBar, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useLayoutEffect } from 'react';
 import { useRecoilState } from 'recoil';
@@ -81,6 +81,8 @@ const Home = ({ navigation }) => {
                         return {
                             id: item.track.id,
                             name: item.track.name,
+                            imageUrl: item.track.album.images[2].url,
+                            artist: item.track.artists[0].name,
                         };
                     })
                 );
@@ -128,7 +130,7 @@ const Home = ({ navigation }) => {
                 barStyle="light-content"
                 backgroundColor={colors.greyDark}
             />
-            <Profile />
+            <Profile onPress={handleLogout} />
             <FlatList
                 style={styles.list}
                 data={playlists}
@@ -136,8 +138,6 @@ const Home = ({ navigation }) => {
                 keyExtractor={(item) => item.id}
                 numColumns={2}
             />
-
-            <Button title="LOG OUT" onPress={handleLogout} />
         </View>
     );
 };

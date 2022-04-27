@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Playlist from '../screens/Playlist';
@@ -11,7 +11,7 @@ const HomeStack = () => {
     return (
         <Stack.Navigator
             screenOptions={{
-                headerShown: true,
+                headerShown: Platform.OS === 'ios' ? false : true,
                 headerBackTitleVisible: false,
                 title: false,
                 headerShadowVisible: false,

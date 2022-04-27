@@ -22,7 +22,7 @@ const Main = () => {
             {token ? (
                 <Tab.Navigator
                     screenOptions={{
-                        headerStyle: { backgroundColor: 'transparent' },
+                        headerStyle: { backgroundColor: colors.greyDark },
                         headerTintColor: colors.green,
                         headerShadowVisible: false,
                         headerShown: false,
@@ -73,6 +73,7 @@ const Main = () => {
                                     />
                                 );
                             },
+                            headerShown: true,
                         }}
                     />
                     <Tab.Screen

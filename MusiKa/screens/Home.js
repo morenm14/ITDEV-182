@@ -1,24 +1,25 @@
 import { StyleSheet, View, StatusBar, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useLayoutEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState, userAvatar } from '../atoms/userAtom';
 import { tokenState } from '../atoms/tokenAtom';
-import { categoriesState, myPlaylists, tracksState } from '../atoms/musicAtom';
+import { myPlaylists, tracksState, singleTrack } from '../atoms/musicAtom';
 import SpotifyWebApi from 'spotify-web-api-node';
 import colors from '../utils/colors';
 import Profile from '../components/Profile';
 import Card from '../components/Card';
+import Player from '../components/Player';
 
 const spotify = new SpotifyWebApi();
 
 const Home = ({ navigation }) => {
     const [user, setUser] = useRecoilState(userState);
-    const [, setCategories] = useRecoilState(categoriesState);
     const [playlists, setPlaylists] = useRecoilState(myPlaylists);
     const [, setAvatar] = useRecoilState(userAvatar);
     const [token, setToken] = useRecoilState(tokenState);
     const [tracks, setTracks] = useRecoilState(tracksState);
+    const single = useRecoilValue(singleTrack);
 
     useLayoutEffect(() => {
         spotify.setAccessToken(token);
@@ -33,23 +34,7 @@ const Home = ({ navigation }) => {
                 console.log('Something went wrong!', err);
             }
         );
-        //get categories
-        spotify
-            .getCategories({
-                limit: 20,
-                offset: 0,
-                country: 'US',
-                locale: 'sv_SE',
-            })
-            .then(
-                function (data) {
-                    setCategories(data.body.categories.items);
-                },
 
-                function (err) {
-                    console.log('Something went wrong!', err);
-                }
-            );
         // Get a user's playlists
         spotify.getUserPlaylists(user).then(
             function (data) {
@@ -73,7 +58,7 @@ const Home = ({ navigation }) => {
     }, [user]);
 
     const renderTracks = (id) => {
-        spotify.getPlaylistTracks(id, { limit: 5, offset: 1 }).then(
+        spotify.getPlaylistTracks(id, { limit: 25, offset: 1 }).then(
             function (data) {
                 console.log('Tracks Data', data.body);
                 setTracks(
@@ -83,6 +68,7 @@ const Home = ({ navigation }) => {
                             name: item.track.name,
                             imageUrl: item.track.album.images[2].url,
                             artist: item.track.artists[0].name,
+                            track: item.track.uri,
                         };
                     })
                 );
@@ -137,6 +123,11 @@ const Home = ({ navigation }) => {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 numColumns={2}
+            />
+            <Player
+                name={single.name}
+                imageSource={single.image}
+                artist={single.artist}
             />
         </View>
     );

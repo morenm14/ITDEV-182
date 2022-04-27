@@ -23,9 +23,10 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
     },
     image: {
-        height: 50,
-        width: 50,
+        height: 40,
+        width: 40,
         marginBottom: 5,
+        marginLeft: 10,
     },
 
     credits: {

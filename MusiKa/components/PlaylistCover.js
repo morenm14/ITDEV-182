@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     image: {
-        width: 230,
-        height: 230,
+        width: 200,
+        height: 200,
     },
 
     imageBackground: {
-        height: 350,
+        height: 300,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
         fontSize: 28,
         color: 'white',
         fontWeight: 'bold',
-        marginTop: -50,
+        marginTop: -20,
         marginLeft: 10,
-        marginBottom: 30,
+        marginBottom: 20,
     },
 });

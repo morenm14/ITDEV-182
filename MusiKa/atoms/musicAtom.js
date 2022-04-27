@@ -14,3 +14,8 @@ export const tracksState = atom({
     key: 'tracks',
     default: [],
 });
+
+export const singleTrack = atom({
+    key: 'track',
+    default: [],
+});

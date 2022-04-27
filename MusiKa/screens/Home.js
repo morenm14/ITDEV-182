@@ -4,7 +4,12 @@ import React, { useLayoutEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState, userAvatar } from '../atoms/userAtom';
 import { tokenState } from '../atoms/tokenAtom';
-import { myPlaylists, tracksState, singleTrack } from '../atoms/musicAtom';
+import {
+    myPlaylists,
+    tracksState,
+    singleTrack,
+    recommendationsState,
+} from '../atoms/musicAtom';
 import SpotifyWebApi from 'spotify-web-api-node';
 import colors from '../utils/colors';
 import Profile from '../components/Profile';
@@ -16,9 +21,10 @@ const spotify = new SpotifyWebApi();
 const Home = ({ navigation }) => {
     const [user, setUser] = useRecoilState(userState);
     const [playlists, setPlaylists] = useRecoilState(myPlaylists);
+    const [, setRecommendations] = useRecoilState(recommendationsState);
     const [, setAvatar] = useRecoilState(userAvatar);
     const [token, setToken] = useRecoilState(tokenState);
-    const [tracks, setTracks] = useRecoilState(tracksState);
+    const [, setTracks] = useRecoilState(tracksState);
     const single = useRecoilValue(singleTrack);
 
     useLayoutEffect(() => {
@@ -28,7 +34,6 @@ const Home = ({ navigation }) => {
             function (data) {
                 setUser(data.body.display_name);
                 setAvatar(data.body.images[0].url);
-                console.log(data.body);
             },
             function (err) {
                 console.log('Something went wrong!', err);
@@ -38,7 +43,6 @@ const Home = ({ navigation }) => {
         // Get a user's playlists
         spotify.getUserPlaylists(user).then(
             function (data) {
-                console.log('Retrieved playlists', data.body);
                 setPlaylists(
                     data.body.items.map((item) => {
                         return {
@@ -49,18 +53,43 @@ const Home = ({ navigation }) => {
                         };
                     })
                 );
-                console.log('created playlists', playlists);
             },
             function (err) {
                 console.log('Something went wrong!', err);
             }
         );
+
+        //Get Recommendations
+        spotify
+            .getRecommendations({
+                min_energy: 0.5,
+                seed_genres: ['dance', 'latino', 'pop', 'reggae', 'spanish'],
+                min_popularity: 70,
+                limit: 50,
+            })
+            .then((data) => {
+                console.log('RECOMMENDATIONS: ', data);
+
+                setRecommendations(
+                    data.body.tracks.map((item) => {
+                        return {
+                            id: item.id,
+                            name: item.name,
+                            uri: item.uri,
+                            image: item.album.images[1].url,
+                            artist: item.artists[0].name,
+                        };
+                    })
+                );
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, [user]);
 
     const renderTracks = (id) => {
-        spotify.getPlaylistTracks(id, { limit: 25, offset: 1 }).then(
+        spotify.getPlaylistTracks(id, { limit: 50 }).then(
             function (data) {
-                console.log('Tracks Data', data.body);
                 setTracks(
                     data.body.items.map((item) => {
                         return {
@@ -72,7 +101,6 @@ const Home = ({ navigation }) => {
                         };
                     })
                 );
-                console.log(tracks);
             },
             function (err) {
                 console.log('Something went wrong!', err);
@@ -85,7 +113,7 @@ const Home = ({ navigation }) => {
         return (
             <Card
                 key={id}
-                imageSource={{ uri: image }}
+                imageSource={image}
                 name={name}
                 onPress={() => {
                     renderTracks(id);

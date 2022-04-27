@@ -28,6 +28,8 @@ const Search = () => {
 
     console.log(searchResults);
 
+    spotify.getCategories();
+
     useEffect(() => {
         if (!token) return;
         spotify.setAccessToken(token);

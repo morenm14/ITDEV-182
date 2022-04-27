@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
 
     credits: {
         marginLeft: 10,
+        width: '80%',
     },
     name: {
         color: 'white',

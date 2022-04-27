@@ -19,3 +19,8 @@ export const singleTrack = atom({
     key: 'track',
     default: [],
 });
+
+export const recommendationsState = atom({
+    key: 'recommendations',
+    default: [],
+});

@@ -37,13 +37,15 @@ const styles = StyleSheet.create({
     credits: {
         marginLeft: 10,
         justifyContent: 'center',
+        width: '60%',
     },
     name: {
         color: 'white',
+        fontSize: 11,
     },
     artist: {
         color: colors.greyLight,
-        fontSize: 12,
+        fontSize: 10,
     },
     playPause: {
         flex: 1,

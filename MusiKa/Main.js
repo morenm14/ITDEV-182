@@ -34,7 +34,7 @@ const Main = () => {
                             backgroundColor: colors.greyDark,
                         },
                         tabBarShowLabel: true,
-                        tabShadows: false,
+                        tabBarShadow: false,
                     }}
                 >
                     <Tab.Screen
@@ -93,6 +93,7 @@ const Main = () => {
                                     />
                                 );
                             },
+                            headerShown: true,
                         }}
                     />
                 </Tab.Navigator>

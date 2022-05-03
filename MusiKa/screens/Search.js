@@ -16,19 +16,17 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import { tokenState } from '../atoms/tokenAtom';
 import Player from '../components/Player';
 import Track from '../components/Track';
-import { tracksState, singleTrack } from '../atoms/musicAtom';
+import { singleTrack } from '../atoms/musicAtom';
 
 const spotify = new SpotifyWebApi();
 
 const Search = () => {
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [single, setTrack] = useRecoilState(singleTrack);
+    const [, setTrack] = useRecoilState(singleTrack);
     const token = useRecoilValue(tokenState);
 
     console.log(searchResults);
-
-    spotify.getCategories();
 
     useEffect(() => {
         if (!token) return;
@@ -38,7 +36,6 @@ const Search = () => {
     useEffect(() => {
         if (!token) return;
         if (!search) return setSearchResults([]);
-
         spotify
             .searchTracks(search, { limit: 20 })
             .then((data) => {
@@ -121,11 +118,7 @@ const Search = () => {
                 keyExtractor={(track) => track.id}
                 ListEmptyComponent={listEmpty}
             />
-            <Player
-                name={single.name}
-                imageSource={single.image}
-                artist={single.artist}
-            />
+            <Player />
         </SafeAreaView>
     );
 };

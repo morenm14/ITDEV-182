@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 export const categoriesState = atom({
     key: 'categories',
@@ -20,7 +20,19 @@ export const singleTrack = atom({
     default: [],
 });
 
+export const currentTrackIdState = selector({
+    key: 'trackId',
+    get: ({ get }) => {
+        return get(singleTrack).id;
+    },
+});
+
 export const recommendationsState = atom({
     key: 'recommendations',
     default: [],
+});
+
+export const isPlayingState = atom({
+    key: 'playingSong',
+    default: false,
 });

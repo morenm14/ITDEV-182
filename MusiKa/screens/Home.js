@@ -1,15 +1,10 @@
 import { StyleSheet, View, StatusBar, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useLayoutEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { userState, userAvatar } from '../atoms/userAtom';
 import { tokenState } from '../atoms/tokenAtom';
-import {
-    myPlaylists,
-    tracksState,
-    singleTrack,
-    recommendationsState,
-} from '../atoms/musicAtom';
+import { myPlaylists, tracksState } from '../atoms/musicAtom';
 import SpotifyWebApi from 'spotify-web-api-node';
 import colors from '../utils/colors';
 import Profile from '../components/Profile';
@@ -21,11 +16,9 @@ const spotify = new SpotifyWebApi();
 const Home = ({ navigation }) => {
     const [user, setUser] = useRecoilState(userState);
     const [playlists, setPlaylists] = useRecoilState(myPlaylists);
-    const [, setRecommendations] = useRecoilState(recommendationsState);
     const [, setAvatar] = useRecoilState(userAvatar);
     const [token, setToken] = useRecoilState(tokenState);
     const [, setTracks] = useRecoilState(tracksState);
-    const single = useRecoilValue(singleTrack);
 
     useLayoutEffect(() => {
         spotify.setAccessToken(token);
@@ -58,33 +51,6 @@ const Home = ({ navigation }) => {
                 console.log('Something went wrong!', err);
             }
         );
-
-        //Get Recommendations
-        spotify
-            .getRecommendations({
-                min_energy: 0.5,
-                seed_genres: ['dance', 'latino', 'pop', 'reggae', 'spanish'],
-                min_popularity: 70,
-                limit: 50,
-            })
-            .then((data) => {
-                console.log('RECOMMENDATIONS: ', data);
-
-                setRecommendations(
-                    data.body.tracks.map((item) => {
-                        return {
-                            id: item.id,
-                            name: item.name,
-                            uri: item.uri,
-                            image: item.album.images[1].url,
-                            artist: item.artists[0].name,
-                        };
-                    })
-                );
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     }, [user]);
 
     const renderTracks = (id) => {
@@ -95,7 +61,7 @@ const Home = ({ navigation }) => {
                         return {
                             id: item.track.id,
                             name: item.track.name,
-                            imageUrl: item.track.album.images[2].url,
+                            imageUrl: item.track.album.images[0].url,
                             artist: item.track.artists[0].name,
                             track: item.track.uri,
                         };
@@ -152,11 +118,7 @@ const Home = ({ navigation }) => {
                 keyExtractor={(item) => item.id}
                 numColumns={2}
             />
-            <Player
-                name={single.name}
-                imageSource={single.image}
-                artist={single.artist}
-            />
+            <Player />
         </View>
     );
 };

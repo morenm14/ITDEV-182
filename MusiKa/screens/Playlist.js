@@ -2,11 +2,10 @@ import { StyleSheet, StatusBar, View, FlatList } from 'react-native';
 import React from 'react';
 import colors from '../utils/colors';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { tracksState, singleTrack } from '../atoms/musicAtom';
+import { tracksState, singleTrack, isPlayingState } from '../atoms/musicAtom';
 import PlaylistCover from '../components/PlaylistCover';
 import Track from '../components/Track';
 import Player from '../components/Player';
-import { playerState } from '../atoms/playerAtom';
 import SpotifyWebApi from 'spotify-web-api-node';
 import { tokenState } from '../atoms/tokenAtom';
 
@@ -15,11 +14,14 @@ const spotify = new SpotifyWebApi();
 const Playlist = ({ route }) => {
     const { name, image } = route.params;
     const tracks = useRecoilValue(tracksState);
-    const [single, setTrack] = useRecoilState(singleTrack);
+    const token = useRecoilValue(tokenState);
+    const [, setIsPlaying] = useRecoilState(isPlayingState);
+    const [, setSong] = useRecoilState(singleTrack);
 
     const handleTrack = ({ item }) => {
         const { imageUrl, id, artist, name, track } = item;
-        setTrack(() => {
+        console.log(item);
+        setSong(() => {
             return {
                 uri: track,
                 image: imageUrl,
@@ -28,6 +30,9 @@ const Playlist = ({ route }) => {
                 id: id,
             };
         });
+        setIsPlaying(true);
+        spotify.setAccessToken(token);
+        spotify.play({ uris: [track] });
     };
 
     const renderItem = ({ item }) => {
@@ -55,11 +60,7 @@ const Playlist = ({ route }) => {
                 renderItem={renderItem}
                 keyExtractor={(track) => track.id}
             />
-            <Player
-                name={single.name}
-                imageSource={single.image}
-                artist={single.artist}
-            />
+            <Player />
         </View>
     );
 };

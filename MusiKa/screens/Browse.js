@@ -60,7 +60,6 @@ const Browse = () => {
 
     const handleTrack = ({ item }) => {
         const { image, id, artist, name, uri } = item;
-        console.log(item);
         setSong(() => {
             return {
                 uri: uri,

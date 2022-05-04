@@ -20,7 +20,6 @@ const Player = () => {
             .getMyCurrentPlaybackState()
             .then((response) => {
                 if (response.statusCode === 200) {
-                    console.log('PLAYER STATE', response);
                     setSong(() => {
                         return {
                             isPlaying: response.body?.is_playing,

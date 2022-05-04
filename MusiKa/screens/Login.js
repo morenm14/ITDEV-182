@@ -20,7 +20,7 @@ const discovery = {
 };
 
 const Login = ({ navigation }) => {
-    const [token, setToken] = useRecoilState(tokenState);
+    const [, setToken] = useRecoilState(tokenState);
 
     const CLIENT_ID = config.CLIENT_ID;
     const CLIENT_SECRET = config.CLIENT_SECRET;
@@ -56,7 +56,6 @@ const Login = ({ navigation }) => {
     const saveToken = async (value) => {
         try {
             await AsyncStorage.setItem('accessToken', value);
-            console.log('SAVED TOKEN', value);
         } catch (e) {
             console.log(e);
         }
@@ -68,7 +67,6 @@ const Login = ({ navigation }) => {
             if (value !== null) {
                 navigation.navigate('Home', { screen: 'Start' });
                 setToken(value);
-                console.log('token from storage: ', value);
             }
         } catch (e) {
             console.log('Error: ', error);
@@ -81,7 +79,6 @@ const Login = ({ navigation }) => {
                 const { access_token } = response.params;
                 saveToken(access_token);
                 setToken(access_token);
-                console.log('token', token);
             }
         } catch (error) {
             console.log('Error: ', error);

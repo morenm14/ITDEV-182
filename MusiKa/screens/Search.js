@@ -28,8 +28,6 @@ const Search = () => {
     const [, setSong] = useRecoilState(singleTrack);
     const token = useRecoilValue(tokenState);
 
-    console.log(searchResults);
-
     useEffect(() => {
         if (!token) return;
         spotify.setAccessToken(token);

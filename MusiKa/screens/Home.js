@@ -104,7 +104,6 @@ const Home = ({ navigation }) => {
     const handleLogout = async () => {
         try {
             await AsyncStorage.removeItem('accessToken');
-            console.log('Token removed from storage');
             setToken('');
             navigation.navigate('Login');
         } catch (error) {

@@ -20,7 +20,6 @@ const Playlist = ({ route }) => {
 
     const handleTrack = ({ item }) => {
         const { imageUrl, id, artist, name, track } = item;
-        console.log(item);
         setSong(() => {
             return {
                 uri: track,

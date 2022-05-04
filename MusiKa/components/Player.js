@@ -5,22 +5,16 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import SpotifyWebApi from 'spotify-web-api-node';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { tokenState } from '../atoms/tokenAtom';
-import {
-    singleTrack,
-    currentTrackIdState,
-    isPlayingState,
-} from '../atoms/musicAtom';
+import { singleTrack, isPlayingState } from '../atoms/musicAtom';
 
 const Player = () => {
     const spotify = new SpotifyWebApi();
     const [song, setSong] = useRecoilState(singleTrack);
     const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
 
-    const songId = useRecoilValue(currentTrackIdState);
     const token = useRecoilValue(tokenState);
 
     useEffect(() => {
-        console.log('song ID:', songId);
         spotify.setAccessToken(token);
         spotify
             .getMyCurrentPlaybackState()

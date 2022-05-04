@@ -16,14 +16,16 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import { tokenState } from '../atoms/tokenAtom';
 import Player from '../components/Player';
 import Track from '../components/Track';
-import { singleTrack } from '../atoms/musicAtom';
+import { singleTrack, isPlayingState } from '../atoms/musicAtom';
 
 const spotify = new SpotifyWebApi();
 
 const Search = () => {
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [, setTrack] = useRecoilState(singleTrack);
+    const [, setIsPlaying] = useRecoilState(isPlayingState);
+
+    const [, setSong] = useRecoilState(singleTrack);
     const token = useRecoilValue(tokenState);
 
     console.log(searchResults);
@@ -57,16 +59,19 @@ const Search = () => {
     }, [search]);
 
     const handleTrack = ({ item }) => {
-        const { image, id, artist, name, track } = item;
-        setTrack(() => {
+        const { image, id, artist, name, uri } = item;
+        setSong(() => {
             return {
-                uri: track,
+                uri: uri,
                 image: image,
                 name: name,
                 artist: artist,
                 id: id,
             };
         });
+        setIsPlaying(true);
+        spotify.setAccessToken(token);
+        spotify.play({ uris: [uri] });
     };
 
     const renderItem = ({ item }) => {

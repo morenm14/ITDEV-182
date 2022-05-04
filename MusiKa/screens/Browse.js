@@ -1,5 +1,11 @@
-import { StyleSheet, FlatList, SafeAreaView, StatusBar } from 'react-native';
-import React, { useEffect } from 'react';
+import {
+    StyleSheet,
+    FlatList,
+    SafeAreaView,
+    StatusBar,
+    ActivityIndicator,
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
 import colors from '../utils/colors';
 import { useRecoilState } from 'recoil';
 import {
@@ -15,6 +21,7 @@ import Card from '../components/Card';
 const spotify = new SpotifyWebApi();
 
 const Browse = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const [recommendations, setRecommendations] =
         useRecoilState(recommendationsState);
     const [, setSong] = useRecoilState(singleTrack);
@@ -26,23 +33,25 @@ const Browse = () => {
         //Get Recommendations
         spotify
             .getRecommendations({
+                min_energy: 0.4,
                 seed_genres: ['dance', 'latino', 'pop', 'rock'],
+                seed_tracks: ['0RiRZpuVRbi7oqRdSMwhQY'],
                 min_popularity: 50,
                 limit: 50,
             })
             .then((data) => {
-                console.log('Recommendations', data);
                 setRecommendations(
                     data.body.tracks.map((item) => {
                         return {
-                            id: item.id,
-                            name: item.name,
-                            uri: item.uri,
-                            image: item.album.images[0]?.url,
-                            artist: item.artists[0]?.name,
+                            id: item?.id,
+                            name: item?.name,
+                            uri: item?.uri,
+                            image: item?.album.images[0]?.url,
+                            artist: item?.artists[0]?.name,
                         };
                     })
                 );
+                setIsLoading(false);
             })
             .catch((err) => {
                 console.log(err);
@@ -85,14 +94,18 @@ const Browse = () => {
                 barStyle="light-content"
                 backgroundColor={colors.greyDark}
             />
+            {isLoading ? (
+                <ActivityIndicator />
+            ) : (
+                <FlatList
+                    style={styles.list}
+                    data={recommendations}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    numColumns={2}
+                />
+            )}
 
-            <FlatList
-                style={styles.list}
-                data={recommendations}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                numColumns={2}
-            />
             <Player />
         </SafeAreaView>
     );

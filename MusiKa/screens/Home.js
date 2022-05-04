@@ -1,6 +1,12 @@
-import { StyleSheet, View, StatusBar, FlatList } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    StatusBar,
+    FlatList,
+    ActivityIndicator,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState, userAvatar } from '../atoms/userAtom';
 import { tokenState } from '../atoms/tokenAtom';
@@ -14,6 +20,7 @@ import Player from '../components/Player';
 const spotify = new SpotifyWebApi();
 
 const Home = ({ navigation }) => {
+    const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useRecoilState(userState);
     const [playlists, setPlaylists] = useRecoilState(myPlaylists);
     const [, setAvatar] = useRecoilState(userAvatar);
@@ -46,6 +53,7 @@ const Home = ({ navigation }) => {
                         };
                     })
                 );
+                setIsLoading(false);
             },
             function (err) {
                 console.log('Something went wrong!', err);
@@ -110,14 +118,20 @@ const Home = ({ navigation }) => {
                 barStyle="light-content"
                 backgroundColor={colors.greyDark}
             />
+
             <Profile onPress={handleLogout} />
-            <FlatList
-                style={styles.list}
-                data={playlists}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                numColumns={2}
-            />
+            {isLoading ? (
+                <ActivityIndicator />
+            ) : (
+                <FlatList
+                    style={styles.list}
+                    data={playlists}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    numColumns={2}
+                />
+            )}
+
             <Player />
         </View>
     );
@@ -139,6 +153,7 @@ const styles = StyleSheet.create({
     },
     list: {
         flex: 1,
+        marginTop: 10,
         alignContent: 'center',
     },
 });

@@ -131,9 +131,8 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: Platform.OS === 'ios' ? '#1DB954' : '#fff',
-        padding: 5,
         width: 200,
-        borderRadius: 25,
+        borderRadius: Platform.OS === 'ios' ? 25 : 0,
         alignSelf: 'center',
     },
 });
